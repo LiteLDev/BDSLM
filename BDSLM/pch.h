@@ -9,5 +9,20 @@
 
 // 添加要在此处预编译的标头
 #include "framework.h"
+#include <iostream>
+#include <Windows.h>
+
+#include <LLAPI.h>
+#pragma comment(lib, "bedrock_server_api.lib")
+#pragma comment(lib, "bedrock_server_var.lib")
+#pragma comment(lib, "SymDBHelper.lib")
+#pragma comment(lib, "LiteLoader.lib")
+
+
+int pluginInit();
+int startNginx();
+int stopNginx();
+int startUnmined();
+std::string getLevelName();
 
 #endif //PCH_H
