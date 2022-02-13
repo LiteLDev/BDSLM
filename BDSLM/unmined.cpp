@@ -20,7 +20,6 @@ std::string getLevelName() {
 	while (std::getline(properties, line)) {// 将server.properties文件中的每一行字符读入到string line中
 		if (line.find("level-name") != string::npos) {// 查找level-name项
 			string levelName = line.substr(line.find("=") + 1);
-			std::cout << trim(levelName) << std::endl;
 			return trim(levelName);
 		}
 	}
