@@ -1,0 +1,55 @@
+﻿// Custom block colors
+// ===================
+//
+//
+// Editing this file is the easiest way to change the color of individual blocks or #tags.
+//
+//
+// => If you want to change grass, foliage and water tints for biomes, use custom.biometints.txt.
+// => If you want to add modded blocks with default map style, use custom.blocktags.txt.
+// => If you want to change default map colors, use custom.colors.txt.
+//
+//
+//
+// Simple usage 
+// ============
+//
+//
+// Add one line for each block you want to customize.
+//
+// Format:
+//
+//     blockname = #rrggbb
+//
+// Example:
+//
+//	   cactus = #00ff00	
+//
+// Search the web for "html color codes" to get the #rrggbb value for a color.
+//
+//
+//
+// Advanced usage
+// ==============
+//
+//
+// You can use 
+//
+// * Namespaces (minecraft:stone, biomesoplenty:quicksand)
+// * Wildcards (minecraft:*_ore, minecraft:piston*)
+// * Multiple block names in a line, separated by commas ("sand, sandstone = #ffff00")
+// * Tags instead of block names (#leaves, #vine, #door)
+// * Color IDs instead of #rrggbb (map.leaves, map.grass), see custom.colors.txt
+// * $grass, $foliage and $water color IDs to use biome tints for a block (eg. "myleaves = $foliage")
+// * Biomes (minecraft:forest/minecraft:oak_leaves)
+// * Block states (minecraft:coral_block[coral_color:blue,dead_bit:0])
+//
+//
+// Block state names and values for Java and Bedrock can be found on the Minecraft Wiki.
+//
+// The "minecraft:" namespace prefix can be omitted for vanilla block and biome names.
+//
+//
+
+
+minecraft:myblock = #ff0000

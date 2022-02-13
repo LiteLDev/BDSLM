@@ -1,0 +1,171 @@
+# Biome name                                       =   Grass, Foliage,   Water
+# ------------------------------------------------ = -------, -------, -------
+
+
+
+# Beach
+# -----
+
+minecraft:beach                                    = #91bd59, #77ab2f, #157CAB
+minecraft:cold_beach                               = #83b593, #64a278, #1463A5
+minecraft:stone_beach                              = #8ab689, #6da36b, #0d67bb
+
+
+# Desert
+# ------
+
+minecraft:desert                                   = #bfb755, #aea42a, #32A598
+minecraft:desert_hills                             = #bfb755, #aea42a, #1A7AA1
+minecraft:desert_mutated                           = #bfb755, #aea42a,        
+
+
+# Extreme Hills
+# -------------
+
+minecraft:extreme_hills                            = #8ab689, #6da36b, #007BF7
+minecraft:extreme_hills_edge                       = #8ab689, #6da36b,        
+minecraft:extreme_hills_mutated                    = #8ab689, #6da36b, #0E63AB
+minecraft:extreme_hills_plus_trees                 = #8ab689, #6da36b, #0E63AB
+minecraft:extreme_hills_plus_trees_mutated         = #8ab689, #6da36b, #0E63AB
+minecraft:frozen_peaks                             = #80B497, #60A17B,        
+minecraft:grove                                    = #80B497, #60A17B,        
+minecraft:jagged_peaks                             = #80B497, #60a17b,        
+minecraft:meadow                                   = #83BB6D, #63A948,        
+minecraft:snowy_slopes                             = #80B497, #60A17B,        
+minecraft:stony_peaks                              = #9ABE4B, #82AC1E,        
+
+
+# Forest
+# ------
+
+minecraft:birch_forest                             = #88bb67, #6ba941, #0677CE
+minecraft:birch_forest_hills                       = #88bb67, #6ba941, #0A74C4
+minecraft:birch_forest_hills_mutated               = #79c05a, #59ae30, #0A74C4
+minecraft:birch_forest_mutated                     = #79c05a, #59ae30, #0677CE
+minecraft:flower_forest                            = #79c05a, #59ae30, #20A3CC
+minecraft:forest                                   = #79c05a, #59ae30, #1E97F2
+minecraft:forest_hills                             = #79c05a, #59ae30, #056BD1
+minecraft:roofed_forest                            = #507a32, #59ae30, #3B6CD1
+minecraft:roofed_forest_mutated                    = #507a32, #59ae30, #3B6CD1
+
+
+# Icy
+# ---
+
+minecraft:ice_mountains                            = #80b497, #60a17b, #1156A7
+minecraft:ice_plains                               = #80b497, #60a17b, #14559B
+minecraft:ice_plains_spikes                        = #80b497, #60a17b, #14559B
+
+
+# Jungle
+# ------
+
+minecraft:bamboo_jungle                            = #59C93C, #30BB0B, #14A2C5
+minecraft:bamboo_jungle_hills                      = #59C93C, #30BB0B, #1B9ED8
+minecraft:jungle                                   = #59c93c, #30bb0b, #14A2C5
+minecraft:jungle_edge                              = #64c73f, #3eb80f, #0D8AE3
+minecraft:jungle_edge_mutated                      = #64c73f, #3eb80f, #0D8AE3
+minecraft:jungle_hills                             = #59c93c, #30bb0b, #1B9ED8
+minecraft:jungle_mutated                           = #59c93c, #30bb0b, #1B9ED8
+
+
+# Mesa
+# ----
+
+minecraft:mesa                                     = #90814d, #9e814d, #4E7F81
+minecraft:mesa_bryce                               = #90814d, #9e814d, #497F99
+minecraft:mesa_plateau                             = #90814d, #9e814d,  #55809E
+minecraft:mesa_plateau_mutated                     = #90814d, #9e814d, #497F99
+minecraft:mesa_plateau_stone                       = #90814d, #9e814d, #497F99
+minecraft:mesa_plateau_stone_mutated               = #90814d, #9e814d, #55809E
+
+
+# Mushroom
+# --------
+
+minecraft:mushroom_island                          = #55c93f, #2bbb0f, #8A8997
+minecraft:mushroom_island_shore                    = #55c93f, #2bbb0f, #818193
+
+
+# Nether
+# ------
+
+minecraft:basalt_deltas                            = #BFB755, #AEA42A, #905957
+minecraft:crimson_forest                           = #BFB755, #AEA42A, #905957
+minecraft:hell                                     = #BFB755, #AEA42A, #905957
+minecraft:soulsand_valley                          = #BFB755, #AEA42A, #905957
+minecraft:warped_forest                            = #BFB755, #AEA42A, #905957
+
+
+# Ocean
+# -----
+
+minecraft:cold_ocean                               = #8eb971, #71a74d, #2080C9
+minecraft:deep_cold_ocean                          = #8eb971, #71a74d, #2080C9
+minecraft:deep_frozen_ocean                        = #8eb971, #71a74d, #2570B5
+minecraft:deep_lukewarm_ocean                      = #8eb971, #71a74d, #0D96DB
+minecraft:deep_ocean                               = #8eb971, #71a74d, #1787D4
+minecraft:deep_warm_ocean                          = #8eb971, #71a74d, #02B0E5
+minecraft:frozen_ocean                             = #80b497, #60a17b, #2570B5
+minecraft:legacy_frozen_ocean                      = #80b497, #60a17b, #2570B5
+minecraft:lukewarm_ocean                           = #8eb971, #71a74d, #0D96DB
+minecraft:ocean                                    = #8eb971, #71a74d, #1787D4
+minecraft:warm_ocean                               = #8eb971, #71a74d, #02B0E5
+
+
+# Plains
+# ------
+
+minecraft:plains                                   = #91bd59, #77ab2f, #44AFF5
+minecraft:sunflower_plains                         = #91bd59, #77ab2f, #44AFF5
+
+
+# River
+# -----
+
+minecraft:frozen_river                             = #80b497, #60a17b, #185390
+minecraft:river                                    = #8eb971, #71a74d, #0084FF
+
+
+# Savanna
+# -------
+
+minecraft:savanna                                  = #bfb755, #aea42a, #2c8b9c
+minecraft:savanna_mutated                          = #bfb755, #aea42a, #2590A8
+minecraft:savanna_plateau                          = #bfb755, #aea42a, #2590A8
+minecraft:savanna_plateau_mutated                  = #55C93F, #2bbb0f, #2590A8
+
+
+# Swamp
+# -----
+
+minecraft:swampland                                = #6A7039, #6a7039, #4C6559
+minecraft:swampland_mutated                        = #6A7039, #6a7039, #4C6156
+
+
+# Taiga
+# -----
+
+minecraft:cold_taiga                               = #80b497, #60a17b, #205e83
+minecraft:cold_taiga_hills                         = #80b497, #60a17b, #245B78
+minecraft:cold_taiga_mutated                       = #80b497, #60a17b, #205e83
+minecraft:mega_taiga                               = #86b87f, #68a55f, #2D6D77
+minecraft:mega_taiga_hills                         = #86b87f, #68a55f, #286378
+minecraft:redwood_taiga_hills_mutated              = #86B87F, #68A55F, #2D6D77
+minecraft:redwood_taiga_mutated                    = #86b783, #68a464, #2D6D77
+minecraft:taiga                                    = #86b783, #68a464, #287082
+minecraft:taiga_hills                              = #86b783, #68a464, #236583
+minecraft:taiga_mutated                            = #86b783, #68a464, #1E6B82
+
+
+# The End
+# -------
+
+minecraft:the_end                                  = #8eb971, #71a74d, #62529E
+
+
+# Underground
+# -----------
+
+minecraft:dripstone_caves                          = #8AB689, #6DA36B,        
+minecraft:lush_caves                               = #8EB971, #71a74d,        

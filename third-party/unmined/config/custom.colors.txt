@@ -1,0 +1,151 @@
+﻿// Custom colors
+// =============
+//
+//
+// Editing this file is the easiest way to customize map colors, and add color IDs.
+//
+//
+// => If you want to change the color of individual blocks, use blockstyles.txt.
+// => If you want to change grass, foliage and water tints for biomes, use custom.biometints.txt.
+// => If you want to add modded blocks with default map style, use custom.blocktags.txt.
+//
+//
+// Default map colors can be customized by adding existing color IDs here. This method allows you to change the colors of the map without coloring each individual block.
+//
+// Color IDs can be used almost everywhere in uNmINeD instead of #rrggbb values, including other configuration files.
+//
+//
+//
+// Simple usage 
+// ============
+//
+//
+// Add lines with color IDs and values.
+//
+// Format:
+//
+//     id = #rrggbb
+//
+// Examples:
+//
+//		map.land = #00FF00
+//		map.mountain = #888800
+//
+// Available color IDs from the default stylesheet (use these to change default map colors): 
+//
+//      mc.white
+//      mc.orange
+//      mc.magenta
+//      mc.light_blue
+//      mc.yellow
+//      mc.lime
+//      mc.pink
+//      mc.gray
+//      mc.light_gray
+//      mc.cyan
+//      mc.purple
+//      mc.blue
+//      mc.brown
+//      mc.green
+//      mc.red
+//      mc.black
+//
+//      map.ice
+//      map.snow
+//      map.dirt
+//      map.lava
+//      map.water
+//      map.water.swamp
+//      map.water.warm
+//      map.water.lukewarm
+//      map.water.other
+//      map.water.ocean
+//      map.water.cold
+//      map.water.other
+//      map.water.ocean
+//      map.water.warm
+//      map.water.cold
+//      map.water.swamp
+//      map.water.magic
+//      map.water.poison
+//      map.sand
+//      map.salt
+//      map.redsand
+//      map.terracotta
+//      map.gravel
+//      map.clay
+//      map.podzol
+//      map.darkrock
+//      map.land
+//      map.land.savanna
+//      map.land.taiga
+//      map.land.swamp
+//      map.vegetation
+//      map.grass
+//      map.grass.savanna
+//      map.grass.taiga
+//      map.grass.swamp
+//      map.grass.badlands
+//      map.leaves
+//      map.leaves.savanna
+//      map.leaves.taiga
+//      map.leaves.swamp
+//      map.leaves.badlands
+//      map.leaves.birch
+//      map.leaves.spruce
+//      map.flower
+//      map.land.underground
+//      map.flower.red
+//      map.flower.yellow
+//      map.flower.blue
+//      map.flower.purple
+//      map.flower.white
+//      map.flower.lilypad
+//      map.coral.tube
+//      map.coral.brain
+//      map.coral.bubble
+//      map.coral.fire
+//      map.coral.horn
+//      map.coral.dead
+//      map.endstone
+//      map.purpur
+//      map.chorus
+//      map.netherrack
+//      map.soulsand
+//      map.netherwart
+//      map.warpedwart
+//      map.mountain
+//      map.mountain.sand
+//      map.mountain.salt
+//      map.mountain.redsand
+//      map.mountain.rock
+//      map.mud
+//      map.path
+//      map.artificial
+//      map.light
+//      map.rail
+//      map.fire
+//      map.circuit
+//      map.cobweb
+//      map.wood
+//      map.stone
+//      map.rock
+//      map.dripstone
+//      map.crops
+//      map.mycelium
+//      map.mushroom.red
+//      map.mushroom.brown
+//
+//
+//
+// Advanced usage
+// ==============
+//
+//
+// You should use namespaces when adding new color IDs to prevent collisions (eg. mycolors:green = #00FF00)
+//
+//
+//
+
+
+examplegreen = #00FF00

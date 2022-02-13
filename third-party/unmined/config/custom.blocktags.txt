@@ -1,0 +1,66 @@
+﻿// Custom block tags
+// =================
+//
+//
+// Editing this file is the easiest way to add modded blocks with default map style, and to add custom block tags.
+//
+//
+// => If you want to change the color of individual blocks, use blockstyles.txt.
+// => If you want to change grass, foliage and water tints for biomes, use custom.biometints.txt.
+// => If you want to change default map colors, use custom.colors.txt.
+//
+//
+// The default stylesheet sets the color of the blocks based on their tags. If you add proper tags to modded blocks, they will be rendered as vanilla ones. (See stylesheet.js and blocktags.js for the proper tags.)
+//
+// Some examples:
+//
+//    #red, #orange and other color tags will be colored according to the tag name
+//    #ground will be rendered using the cartographic elevation gradient (if enabled)
+//	  There are tags for #ice, #crops, #stone, #leaves, etc.
+
+//
+// If you tag a block with:
+//    #grass: the "Flat grass" map setting will affect it
+//    #waterlogged: the block filter will replace it with water instead of air
+//
+// Tags added here can be used almost everywhere in uNmINeD instead of block names, including other configuration files and block filters.
+//
+// The predefined block filters works the following tags: #seagrass, #kelp, #grass, #flower, #vine, #leaves, #log, #flora, #water, #lava, #snow, #ice, #artificial, #natural, #torch, #technical.
+//
+// See default/default.blocktags.js and default/default.stylesheet.js for available tags.
+//
+//
+// Simple usage 
+// ============
+//
+//
+// Add lines with block names and tags to assign.
+//
+// Format:
+//
+//     blockname = #tag1, #tag2, #tag3
+//
+// Examples:
+//
+//	   biomesoplenty:violet = #flower, #purple
+//	   biomesoplenty:glowshroom = #mushroom
+//
+//
+//
+// Advanced usage
+// ==============
+//
+//
+// You can use: 
+//
+// * wildcards in block names (eg. minecraft:*_ore, minecraft:piston*)
+// * multiple block names in a line separated by commas (eg. "sand, sandstone = #sand")
+// * the "!" prefix to remove a tag (eg. "goldbricks = #gold !#bricks")
+//
+// The two sides of the equal sign can be swapped (eg. "#tag1, #tag2 = blockname1, blockname2")
+//
+// The "minecraft:" namespace prefix can be omitted for vanilla block names.
+//
+
+
+minecraft:myblock = #leaves

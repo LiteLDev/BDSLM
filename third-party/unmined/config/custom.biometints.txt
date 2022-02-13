@@ -1,0 +1,50 @@
+﻿// Custom biome tints
+// ==================
+//
+//
+// Editing this file is the easiest way to add modded biome tints (grass, foliage and water colors), and to customize existing ones.
+// 
+//
+// Adding biome tints provides better performance than coloring individual blocks using blockstyles.txt. However, in blockstyles.txt you can assign different colors to each block in each biome, not just grass, foliage and water.
+//
+//
+// Biome tint values usually can be found in data packs, the source code of mods, and on Wiki pages.
+// Note that these tints are not actual colors, and may look brighter or darker on the map.
+//
+//
+//
+// Simple usage 
+// ============
+//
+//
+// Add one line for each biome you want to customize.
+//
+// Format:
+//
+//     biomename = #rrggbb, #rrggbb, #rrggbb
+//
+// The first RGB value is for grass block, second is for foliage (leaves), third is for water.
+//
+// Examples:
+//
+//	   forest = #00ff00, #00ff00, #0000ff
+//
+// Search the web for "html color codes" to get the #rrggbb value for a color.
+//
+//
+//
+// Advanced usage
+// ==============
+//
+//
+// You can use 
+//
+// * Namespaces (eg. minecraft:forest, biomesoplenty:cherry_blossom_grove)
+// * Wildcards (eg. minecraft:*_ocean)
+//
+//
+// The "minecraft:" namespace prefix can be omitted for vanilla biome names.
+//
+
+
+minecraft:mybiome = #00FF00, #00FF00, #0000FF

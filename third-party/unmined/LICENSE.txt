@@ -1,0 +1,17 @@
+﻿uNmINeD is a closed source software published in binary form under the following conditions:
+
+What you can do
+
+* You can download and use uNmINeD for free.
+
+Restrictions
+
+* Commercial use is forbidden.
+* Do not distribute or modify uNmINeD.
+* You can use uNmINeD at your own risk. The author makes no warranties of any kind, and is not liable for any claim, damages or other liability.
+
+Other
+
+* I reserve the right to change this agreement at any time for future versions with or without notice.
+
+Copyright (C) 2011-2022 by Balázs Farkas
