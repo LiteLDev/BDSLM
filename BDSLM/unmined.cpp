@@ -31,9 +31,9 @@ bool errorMode = false;
 int startUnmined() {
 	string levelName = getLevelName();
 	if (levelName == "") {
-		Logger logger;
-		logger.warn << "无法从server.properties中读取level-name项。使用默认值 Bedrock level。" << logger.endl;
-		levelName = "Bedrock level";
+		Logger logger("BDSLM");
+		logger.warn << L"无法从server.properties中读取level-name项。使用默认值 level。" << logger.endl;
+		levelName = "level";
 	}
 	bool status = true;
 	status = shell.RunProcess(".\\plugins\\BDSLM\\unmined\\unmined-cli.exe web render --world=\"./worlds/" + levelName + "\" --output=\"./plugins/BDSLM/unmined-web/\" --imageformat=webp -c --zoomin=-2 --zoomout=4");
