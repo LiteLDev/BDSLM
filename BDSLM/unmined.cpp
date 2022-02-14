@@ -29,9 +29,10 @@ std::string getLevelName() {
 Shell shell;
 bool errorMode = false;
 int startUnmined() {
+	Logger logger("BDSLM");
+	logger.info << L"启动地图渲染进程……" << logger.endl;
 	string levelName = getLevelName();
 	if (levelName == "") {
-		Logger logger("BDSLM");
 		logger.warn << L"无法从server.properties中读取level-name项。使用默认值 level。" << logger.endl;
 		levelName = "level";
 	}
@@ -40,13 +41,13 @@ int startUnmined() {
 	Schedule::repeat([]() {
 		string line;
 		shell.GetOutput(1, line);
-		/*if (line.find("Elapsed time total") != string::npos) {
-			Logger logger;
-			logger.info << "地图生成完毕！" << logger.endl;
+		if (line.find("Elapsed time total") != string::npos) {
+			Logger logger("BDSLM");
+			logger.info << L"地图生成完毕！" << logger.endl;
 		}
 		else if (line.find("exception") != string::npos) {
-			Logger logger;
-			logger.error << "地图生成失败：" << logger.endl;
+			Logger logger("BDSLM");
+			logger.error << L"地图生成失败：" << logger.endl;
 			errorMode = true;
 		}
 		else {
@@ -54,7 +55,7 @@ int startUnmined() {
 		}
 		if (errorMode) {
 			std::cout << line;
-		}*/
+		}
 	}, 40);
 	return status;
 }
