@@ -1,5 +1,22 @@
 #include "pch.h"
 
+int writeNgxConf(unsigned short int port) {
+    string fstr("listen      " + std::to_string(port) + ";\nlisten        [::]:" + std::to_string(port) + ";");
+    try
+    {
+        std::fstream fout("plugins/BDSLM/nginx/conf/port.conf", std::ios::out | std::ios::trunc);
+        fout << fstr << std::endl;
+        fout.close();
+
+    }
+    catch (std::exception& e)
+    {
+        Logger logger("BDSLM");
+        logger.error << "error happened:" << e.what() << logger.endl;
+    }
+    return 0;
+}
+
 inline bool exists_ngxPidFile(const std::string& path) {
     std::fstream ngxPidStream;
     ngxPidStream.open(path, std::ios::in);
@@ -12,7 +29,9 @@ inline bool exists_ngxPidFile(const std::string& path) {
 }
 
 int startNginx() {
-    char cWindowsDirectory[MAX_PATH];
+    parseConfFile();
+    writeNgxConf(port);
+    char cWindowsDirectory[MAX_PATH]{};
     LPTSTR cWinDir = new TCHAR[MAX_PATH];
     GetCurrentDirectory(MAX_PATH, cWinDir);
     char* sConLin = (char*)"./plugins/BDSLM/nginx/nginx.exe -p ./plugins/BDSLM/nginx/";
@@ -46,7 +65,7 @@ int startNginx() {
 
 int stopNginx() {
     if (exists_ngxPidFile("./plugins/BDSLM/nginx/logs/nginx.pid")) {
-        char cWindowsDirectory[MAX_PATH];
+        char cWindowsDirectory[MAX_PATH]{};
         LPTSTR cWinDir = new TCHAR[MAX_PATH];
         GetCurrentDirectory(MAX_PATH, cWinDir);
         char* sConLin = (char*)"./plugins/BDSLM/nginx/nginx.exe -p ./plugins/BDSLM/nginx/ -s quit";

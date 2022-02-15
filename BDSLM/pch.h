@@ -13,16 +13,18 @@
 #include <Windows.h>
 
 #include <LLAPI.h>
+
 #pragma comment(lib, "bedrock_server_api.lib")
 #pragma comment(lib, "bedrock_server_var.lib")
 #pragma comment(lib, "SymDBHelper.lib")
 #pragma comment(lib, "LiteLoader.lib")
-
 
 int pluginInit();
 int startNginx();
 int stopNginx();
 int startUnmined();
 std::string getLevelName();
+void parseConfFile();
+extern unsigned short int port;
 
 #endif //PCH_H

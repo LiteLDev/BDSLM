@@ -1,0 +1,9 @@
+Package: yaml-cpp
+Version: 0.7.0
+Port-Version: 1
+Depends: vcpkg-cmake, vcpkg-cmake-config
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 031df3d7b83ffd470da176beee215a64b8add50ef3ffaea3164c1b5f31d9a9c9
+Description: yaml-cpp is a YAML parser and emitter in C++ matching the YAML 1.2 spec.
+Type: Port

@@ -1,3 +1,6 @@
 [submodule "LiteLoaderSDK"]
 	path = LiteLoaderSDK
 	url = https://github.com/LiteLDev/LiteLoaderSDK.git
+[submodule "third-party/yaml-cpp"]
+	path = third-party/yaml-cpp
+	url = https://github.com/jbeder/yaml-cpp.git
