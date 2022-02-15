@@ -15,7 +15,7 @@ void parseConfFile() {
     }
     catch (YAML::BadFile& e) {
         Logger logger("BDSLM");
-        logger.error << L"配置文件读取失败，请重新检查或进行全新安装BDSLM。" << logger.endl;
+        logger.error << L"配置文件读取失败，请重新检查或全新安装BDSLM。" << logger.endl;
         // To-Do: 自动生成配置文件
         port = 5000;
     }
