@@ -1,13 +1,12 @@
 #include "pch.h"
 
 int writeNgxConf(unsigned short int port) {
-    string fstr("listen      " + std::to_string(port) + ";\nlisten        [::]:" + std::to_string(port) + ";");
+    string fstr("listen      " + std::to_string(port) + ";\nlisten        [::]:" + std::to_string(port) + ";\n"+"set $apiPort "+ std::to_string(apiPort) +";");
     try
     {
         std::fstream fout("plugins/BDSLM/nginx/conf/port.conf", std::ios::out | std::ios::trunc);
         fout << fstr << std::endl;
         fout.close();
-
     }
     catch (std::exception& e)
     {
@@ -56,10 +55,12 @@ int startNginx() {
     {
         CloseHandle(pi.hProcess);
         CloseHandle(pi.hThread);
+        return true;
     }
     else {
         Logger logger;
         logger.error << "failed to create process" << logger.endl;
+        return false;
     }
 }
 
@@ -91,10 +92,12 @@ int stopNginx() {
             WaitForSingleObject(pi.hProcess, 2000);
             CloseHandle(pi.hProcess);
             CloseHandle(pi.hThread);
+            return true;
         }
         else {
             Logger logger;
             logger.error << "failed to create process" << logger.endl;
+            return false;
         }
     }
 }

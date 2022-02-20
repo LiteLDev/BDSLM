@@ -1,2 +1,4 @@
 webServer:
   port: 5000
+apiServer:
+  port: 5001

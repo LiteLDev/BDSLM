@@ -20,11 +20,14 @@
 #pragma comment(lib, "LiteLoader.lib")
 
 int pluginInit();
+int startApiServer();
 int startNginx();
 int stopNginx();
 int startUnmined();
 std::string getLevelName();
 void parseConfFile();
+std::string getPlayerMarkers();
 extern unsigned short int port;
+extern unsigned short int apiPort;
 
 #endif //PCH_H

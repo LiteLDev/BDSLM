@@ -9,14 +9,7 @@ BOOL APIENTRY DllMain(HMODULE hModule,
     switch (ul_reason_for_call)
     {
     case DLL_PROCESS_ATTACH:
-        LL::registerPlugin("BDSLM", "Satellite Map for Bedrock Dedicated Server", LL::Version(0, 1, 0), {
-                { "Author", "PA733" }
-            }
-        );
-        std::ios::sync_with_stdio(false);
-        startUnmined();
-        stopNginx();
-        startNginx();
+        pluginInit();
         break;
     case DLL_THREAD_ATTACH:
     case DLL_THREAD_DETACH:
