@@ -13,6 +13,6 @@ int startApiServer() {
 		res.set_content(getPlayerMarkers(), "application/json");
 		});
 
-	svr.listen("0.0.0.0", 5001);
+	svr.listen("0.0.0.0", apiPort);
 	return 0;
 }
