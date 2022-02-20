@@ -92,7 +92,7 @@
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\third-party\yaml-cpp_x64-windows\include;$(ProjectDir)..\LiteLoaderSDK\Header;D:\Users\22917\Documents\GitHub\BDSLM\LiteLoaderSDK\Header\third-party</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\third-party\yaml-cpp_x64-windows\include;$(ProjectDir)..\LiteLoaderSDK\Header;$(ProjectDir)..\LiteLoaderSDK\Header\third-party</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
@@ -116,7 +116,7 @@
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\third-party\yaml-cpp_x64-windows\include;$(ProjectDir)..\LiteLoaderSDK\Header;D:\Users\22917\Documents\GitHub\BDSLM\LiteLoaderSDK\Header\third-party</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\third-party\yaml-cpp_x64-windows\include;$(ProjectDir)..\LiteLoaderSDK\Header;$(ProjectDir)..\LiteLoaderSDK\Header\third-party</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
@@ -140,7 +140,7 @@
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\third-party\yaml-cpp_x64-windows\include;$(ProjectDir)..\LiteLoaderSDK\Header;D:\Users\22917\Documents\GitHub\BDSLM\LiteLoaderSDK\Header\third-party</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\third-party\yaml-cpp_x64-windows\include;$(ProjectDir)..\LiteLoaderSDK\Header;$(ProjectDir)..\LiteLoaderSDK\Header\third-party</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
@@ -164,7 +164,7 @@
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\third-party\yaml-cpp_x64-windows\include;$(ProjectDir)..\LiteLoaderSDK\Header;D:\Users\22917\Documents\GitHub\BDSLM\LiteLoaderSDK\Header\third-party</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\third-party\yaml-cpp_x64-windows\include;$(ProjectDir)..\LiteLoaderSDK\Header;$(ProjectDir)..\LiteLoaderSDK\Header\third-party</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
