@@ -92,12 +92,15 @@ int stopNginx() {
             WaitForSingleObject(pi.hProcess, 2000);
             CloseHandle(pi.hProcess);
             CloseHandle(pi.hThread);
-            return true;
+            return false;
         }
         else {
             Logger logger;
             logger.error << "failed to create process" << logger.endl;
-            return false;
+            return true;
         }
+    }
+    else {
+        return false;
     }
 }
