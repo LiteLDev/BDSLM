@@ -16,8 +16,8 @@ void parseConfFile() {
     }
     catch (YAML::BadFile& e) {
         Logger logger("BDSLM");
-        logger.error << L"ÅäÖÃÎÄ¼þ¶ÁÈ¡Ê§°Ü£¬ÇëÖØÐÂ¼ì²é»òÈ«ÐÂ°²×°BDSLM¡£" << logger.endl;
-        // To-Do: ×Ô¶¯Éú³ÉÅäÖÃÎÄ¼þ
+        logger.error << "é…ç½®æ–‡ä»¶è¯»å–å¤±è´¥ï¼Œè¯·é‡æ–°æ£€æŸ¥æˆ–å…¨æ–°å®‰è£…BDSLMã€‚" << logger.endl;
+        // To-Do: è‡ªåŠ¨ç”Ÿæˆé…ç½®æ–‡ä»¶
         port = 5000;
         apiPort = 5001;
     }

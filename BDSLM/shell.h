@@ -10,14 +10,14 @@ public:
 
 	bool RunProcess(const string& process);
 	bool StopProcess(void);
-	bool GetOutput(int timeout, string& outstr);//»ñÈ¡Êä³ö×Ö·û´®
-	bool SetInput(const string& cmd);//Ö´ÐÐÃüÁî
+	bool GetOutput(int timeout, string& outstr);//èŽ·å–è¾“å‡ºå­—ç¬¦ä¸²
+	bool SetInput(const string& cmd);//æ‰§è¡Œå‘½ä»¤
 private:
-	HANDLE m_hChildInputWrite;	//ÓÃÓÚÖØ¶¨Ïò×Ó½ø³ÌÊäÈëµÄ¾ä±ú
+	HANDLE m_hChildInputWrite;	//ç”¨äºŽé‡å®šå‘å­è¿›ç¨‹è¾“å…¥çš„å¥æŸ„
 	HANDLE m_hChildInputRead;
-	HANDLE m_hChildOutputWrite;	//ÓÃÓÚÖØ¶¨Ïò×Ó½ø³ÌÊä³öµÄ¾ä±ú  
+	HANDLE m_hChildOutputWrite;	//ç”¨äºŽé‡å®šå‘å­è¿›ç¨‹è¾“å‡ºçš„å¥æŸ„  
 	HANDLE m_hChildOutputRead;
-	PROCESS_INFORMATION m_cmdPI;//cmd½ø³ÌÐÅÏ¢
+	PROCESS_INFORMATION m_cmdPI;//cmdè¿›ç¨‹ä¿¡æ¯
 };
 Shell::Shell(void)
 {
@@ -39,13 +39,13 @@ bool Shell::RunProcess(const string& process)
 	sa.lpSecurityDescriptor = NULL;
 	sa.nLength = sizeof(sa);
 
-	//´´½¨×Ó½ø³ÌÊä³öÄäÃû¹ÜµÀ 
+	//åˆ›å»ºå­è¿›ç¨‹è¾“å‡ºåŒ¿åç®¡é“ 
 	if (FALSE == ::CreatePipe(&m_hChildOutputRead, &m_hChildOutputWrite, &sa, 0))
 	{
 		return false;
 	}
 
-	//´´½¨×Ó½ø³ÌÊäÈëÄäÃû¹ÜµÀ   
+	//åˆ›å»ºå­è¿›ç¨‹è¾“å…¥åŒ¿åç®¡é“   
 	if (FALSE == CreatePipe(&m_hChildInputRead, &m_hChildInputWrite, &sa, 0))
 	{
 		::CloseHandle(m_hChildOutputWrite);
@@ -60,8 +60,8 @@ bool Shell::RunProcess(const string& process)
 	si.cb = sizeof(STARTUPINFO);
 	si.dwFlags = STARTF_USESTDHANDLES | STARTF_USESHOWWINDOW;
 	si.wShowWindow = SW_HIDE;
-	si.hStdInput = m_hChildInputRead;     //ÖØ¶¨Ïò×Ó½ø³ÌÊäÈë   
-	si.hStdOutput = m_hChildOutputWrite;   //ÖØ¶¨Ïò×Ó½ø³ÌÊäÈë    
+	si.hStdInput = m_hChildInputRead;     //é‡å®šå‘å­è¿›ç¨‹è¾“å…¥   
+	si.hStdOutput = m_hChildOutputWrite;   //é‡å®šå‘å­è¿›ç¨‹è¾“å…¥    
 	si.hStdError = m_hChildOutputWrite;
 
 	if (FALSE == ::CreateProcessA(NULL, (char*)process.c_str(), NULL, NULL, TRUE, NORMAL_PRIORITY_CLASS, NULL, NULL, &si, &m_cmdPI))
@@ -108,13 +108,13 @@ bool Shell::GetOutput(int timeout, string& outstr)
 	DWORD readBytes = 0;
 	while (timeout > 0)
 	{
-		//¶Ô¹ÜµÀÊý¾Ý½øÐÐ¶Á£¬µ«²»»áÉ¾³ý¹ÜµÀÀïµÄÊý¾Ý£¬Èç¹ûÃ»ÓÐÊý¾Ý£¬¾ÍÁ¢¼´·µ»Ø
+		//å¯¹ç®¡é“æ•°æ®è¿›è¡Œè¯»ï¼Œä½†ä¸ä¼šåˆ é™¤ç®¡é“é‡Œçš„æ•°æ®ï¼Œå¦‚æžœæ²¡æœ‰æ•°æ®ï¼Œå°±ç«‹å³è¿”å›ž
 		if (FALSE == PeekNamedPipe(m_hChildOutputRead, buffer, sizeof(buffer) - 1, &readBytes, 0, NULL))
 		{
 			return false;
 		}
 
-		//¼ì²âÊÇ·ñ¶Áµ½Êý¾Ý£¬Èç¹ûÃ»ÓÐÊý¾Ý£¬¼ÌÐøµÈ´ý
+		//æ£€æµ‹æ˜¯å¦è¯»åˆ°æ•°æ®ï¼Œå¦‚æžœæ²¡æœ‰æ•°æ®ï¼Œç»§ç»­ç­‰å¾…
 		if (0 == readBytes)
 		{
 			timeout -= 1;

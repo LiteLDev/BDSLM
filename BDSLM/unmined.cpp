@@ -17,8 +17,8 @@ std::string& trim(std::string& s)
 std::string getLevelName() {
 	std::ifstream properties("server.properties");
 	string line;
-	while (std::getline(properties, line)) {// ½«server.propertiesÎÄ¼şÖĞµÄÃ¿Ò»ĞĞ×Ö·û¶ÁÈëµ½string lineÖĞ
-		if (line.find("level-name") != string::npos) {// ²éÕÒlevel-nameÏî
+	while (std::getline(properties, line)) {// å°†server.propertiesæ–‡ä»¶ä¸­çš„æ¯ä¸€è¡Œå­—ç¬¦è¯»å…¥åˆ°string lineä¸­
+		if (line.find("level-name") != string::npos) {// æŸ¥æ‰¾level-nameé¡¹
 			string levelName = line.substr(line.find("=") + 1);
 			return trim(levelName);
 		}
@@ -30,10 +30,10 @@ Shell shell;
 bool errorMode = false;
 int startUnmined() {
 	Logger logger("BDSLM");
-	logger.info << L"Æô¶¯µØÍ¼äÖÈ¾½ø³Ì¡­¡­" << logger.endl;
+	logger.info << "å¯åŠ¨åœ°å›¾æ¸²æŸ“è¿›ç¨‹â€¦â€¦" << logger.endl;
 	string levelName = getLevelName();
 	if (levelName == "") {
-		logger.warn << L"ÎŞ·¨´Óserver.propertiesÖĞ¶ÁÈ¡level-nameÏî¡£Ê¹ÓÃÄ¬ÈÏÖµ level¡£" << logger.endl;
+		logger.warn << "æ— æ³•ä»server.propertiesä¸­è¯»å–level-nameé¡¹ã€‚ä½¿ç”¨é»˜è®¤å€¼ levelã€‚" << logger.endl;
 		levelName = "level";
 	}
 	bool status = true;
@@ -43,11 +43,11 @@ int startUnmined() {
 		shell.GetOutput(1, line);
 		if (line.find("Elapsed time total") != string::npos) {
 			Logger logger("BDSLM");
-			logger.info << L"µØÍ¼Éú³ÉÍê±Ï£¡" << logger.endl;
+			logger.info << "åœ°å›¾ç”Ÿæˆå®Œæ¯•ï¼" << logger.endl;
 		}
 		else if (line.find("exception") != string::npos) {
 			Logger logger("BDSLM");
-			logger.error << L"µØÍ¼Éú³ÉÊ§°Ü£º" << logger.endl;
+			logger.error << "åœ°å›¾ç”Ÿæˆå¤±è´¥ï¼š" << logger.endl;
 			errorMode = true;
 		}
 		else {
