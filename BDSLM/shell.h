@@ -1,6 +1,7 @@
 #pragma once
 #include "pch.h"
 using std::string;
+using std::wstring;
 
 class Shell
 {
@@ -8,7 +9,7 @@ public:
 	Shell(void);
 	~Shell(void);
 
-	bool RunProcess(const string& process);
+	bool RunProcess(const wstring& process);
 	bool StopProcess(void);
 	bool GetOutput(int timeout, string& outstr);//获取输出字符串
 	bool SetInput(const string& cmd);//执行命令
@@ -32,9 +33,9 @@ Shell::~Shell(void)
 {
 	StopProcess();
 }
-bool Shell::RunProcess(const string& process)
+bool Shell::RunProcess(const wstring& process)
 {
-	SECURITY_ATTRIBUTES   sa;
+	SECURITY_ATTRIBUTES   sa{};
 	sa.bInheritHandle = TRUE;
 	sa.lpSecurityDescriptor = NULL;
 	sa.nLength = sizeof(sa);
@@ -54,8 +55,8 @@ bool Shell::RunProcess(const string& process)
 	}
 
 	ZeroMemory(&m_cmdPI, sizeof(m_cmdPI));
-	STARTUPINFOA  si;
-	GetStartupInfoA(&si);
+	STARTUPINFO  si;
+	GetStartupInfo(&si);
 
 	si.cb = sizeof(STARTUPINFO);
 	si.dwFlags = STARTF_USESTDHANDLES | STARTF_USESHOWWINDOW;
@@ -64,7 +65,7 @@ bool Shell::RunProcess(const string& process)
 	si.hStdOutput = m_hChildOutputWrite;   //重定向子进程输入    
 	si.hStdError = m_hChildOutputWrite;
 
-	if (FALSE == ::CreateProcessA(NULL, (char*)process.c_str(), NULL, NULL, TRUE, NORMAL_PRIORITY_CLASS, NULL, NULL, &si, &m_cmdPI))
+	if (FALSE == ::CreateProcess(NULL, (wchar_t*)process.c_str(), NULL, NULL, TRUE, NORMAL_PRIORITY_CLASS, NULL, NULL, &si, &m_cmdPI))
 	{
 		::CloseHandle(m_hChildInputWrite);
 		::CloseHandle(m_hChildInputRead);

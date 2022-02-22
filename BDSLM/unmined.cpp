@@ -37,7 +37,7 @@ int startUnmined() {
 		levelName = "level";
 	}
 	bool status = true;
-	status = shell.RunProcess(".\\plugins\\BDSLM\\unmined\\unmined-cli.exe web render --world=\"./worlds/" + levelName + "\" --output=\"./plugins/BDSLM/unmined-web/\" --imageformat=webp -c --zoomin=-2 --zoomout=4");
+	status = shell.RunProcess(TextEncoding::toUnicode(".\\plugins\\BDSLM\\unmined\\unmined-cli.exe web render --world=\"./worlds/" + levelName + "\" --output=\"./plugins/BDSLM/unmined-web/\" --imageformat=webp -c --zoomin=-2 --zoomout=4"));
 	Schedule::repeat([]() {
 		string line;
 		shell.GetOutput(1, line);

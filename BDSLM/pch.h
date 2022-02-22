@@ -13,6 +13,7 @@
 #include <Windows.h>
 
 #include <LLAPI.h>
+#include <I18nAPI.h>
 
 #pragma comment(lib, "bedrock_server_api.lib")
 #pragma comment(lib, "bedrock_server_var.lib")
