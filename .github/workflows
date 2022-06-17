@@ -1,0 +1,117 @@
+name: Build BDSLM
+
+on: [push]
+
+env:
+  # Path to the solution file relative to the root of the project.
+  SOLUTION_FILE_PATH: ./BDSLM.sln
+
+  # Configuration type to build.
+  # You can convert this to a build matrix if you need coverage of multiple configuration types.
+  # https://docs.github.com/actions/learn-github-actions/managing-complex-workflows#using-a-build-matrix
+  BUILD_CONFIGURATION: Release
+  Platform: X64
+  VERSION_FILE_PATH: ./BDSLM/Version.h
+
+jobs:
+  pre-process:
+    runs-on: windows-2022
+
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        submodules: 'true'
+
+    - name: Download Server
+      working-directory: ${{env.GITHUB_WORKSPACE}}
+      run: |
+        mkdir D:/BDS
+        ServerLink=$(cat 'LINK.txt')
+        curl -L -o D:/BDS/server.zip "$ServerLink"
+        unzip D:/BDS/server.zip -d D:/BDS > /dev/null
+      shell: bash
+      
+    - name: Build Library
+      working-directory: ${{env.GITHUB_WORKSPACE}}
+      run: |
+        cd SDK/Tools
+        LibraryBuilder.exe -o ../Lib D:/BDS
+      shell: cmd
+      
+    - name: Add MSBuild to PATH
+      uses: microsoft/setup-msbuild@v1.1
+
+#     - name: Restore NuGet packages
+#       working-directory: ${{env.GITHUB_WORKSPACE}}
+#       run: nuget restore ${{env.SOLUTION_FILE_PATH}}
+    
+    - name: Change PLUGIN_VERSION_STATUS_BETA
+      working-directory: ${{env.GITHUB_WORKSPACE}}
+      if: false == startsWith(github.ref, 'refs/tags/')
+      run: |
+        sed -r -i 's/#define\s+PLUGIN_VERSION_STATUS\s+PLUGIN_VERSION_\w+/#define PLUGIN_VERSION_STATUS   PLUGIN_VERSION_BETA/' ${{env.VERSION_FILE_PATH}}
+        sed -r -i 's/#define\s+PLUGIN_VERSION_BUILD\s+.*/#define PLUGIN_VERSION_BUILD  ${{ github.run_number }}\r/' ${{env.VERSION_FILE_PATH}}
+      shell: bash
+
+    - name: Change PLUGIN_VERSION_STATUS_RELEASE
+      working-directory: ${{env.GITHUB_WORKSPACE}}
+      if: startsWith(github.ref, 'refs/tags/')
+      run: |
+        sed -r -i 's/#define\s+PLUGIN_VERSION_STATUS\s+PLUGIN_VERSION_\w+/#define PLUGIN_VERSION_STATUS   PLUGIN_VERSION_RELEASE/' ${{env.VERSION_FILE_PATH}}
+        sed -r -i 's/#define\s+PLUGIN_VERSION_BUILD\s+.*/#define PLUGIN_VERSION_BUILD  ${{ github.run_number }}\r/' ${{env.VERSION_FILE_PATH}}
+      shell: bash
+
+    - name: Build Plugin
+      working-directory: ${{env.GITHUB_WORKSPACE}}
+      # Add additional options to the MSBuild command line here (like platform or verbosity level).
+      # See https://docs.microsoft.com/visualstudio/msbuild/msbuild-command-line-reference
+      run: |
+        MSBuild.exe ${{env.SOLUTION_FILE_PATH}} -property:Configuration=${{env.BUILD_CONFIGURATION}}
+      shell: bash
+    
+    - name: Change Pack Version
+      working-directory: ${{env.GITHUB_WORKSPACE}}
+      run: |
+         ActionHelper.exe
+      shell: cmd
+
+    - name: copy dll and pdb files
+      working-directory: ${{env.GITHUB_WORKSPACE}}
+      run: |
+        mkdir output
+        mkdir output/plugins
+        cp -f x64/Release/*.dll output/plugins
+      #  mkdir output/plugins/lib/
+      # cp -f x64/Release/*.pdb output/plugins/lib     
+      #  mkdir output/resource_packs
+      # cp -r pack/BETweaker output/resource_packs
+      shell: bash
+    
+    - name: upload files
+      uses: actions/upload-artifact@v2
+      with:
+        name: BDSLM
+        path: ${{ github.workspace }}/output/
+
+    - name: Archive
+      working-directory: ${{env.GITHUB_WORKSPACE}}
+      if: startsWith(github.ref, 'refs/tags/')
+      run: Compress-Archive -Path output/* output/BDSLM.zip
+
+    - name: Prepare for creating Release
+      working-directory: ${{env.GITHUB_WORKSPACE}}
+      id: rel
+      if: startsWith(github.ref, 'refs/tags/')
+      run: |
+        echo ::set-output name=tag::${GITHUB_REF#refs/tags/*}
+        mv output/BETweaker.zip output/BETweaker-${GITHUB_REF#refs/tags/*}.zip
+      shell: bash
+
+    - name: Create New Release
+      uses: softprops/action-gh-release@v1
+      if: startsWith(github.ref, 'refs/tags/')
+      with:
+        body_path: ${{ github.workspace }}/CHANGELOG.txt
+        files: ${{ github.workspace }}\output\BETweaker-${{ steps.rel.outputs.tag }}.zip
+      env:
+          GITHUB_REPOSITORY: BuslnwTH/BDSLM
