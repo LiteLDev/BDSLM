@@ -24,6 +24,7 @@
 
 int pluginInit();
 int startApiServer();
+void markersInit();
 int startNginx();
 int stopNginx();
 int startUnmined();

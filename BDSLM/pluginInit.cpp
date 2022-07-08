@@ -8,6 +8,7 @@ int pluginInit() {
     );
     std::ios::sync_with_stdio(false);
     int a = 0;
+    markersInit();
     std::thread apiServerThread(startApiServer);
     apiServerThread.detach();
     startUnmined();

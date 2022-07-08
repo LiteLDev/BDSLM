@@ -1,19 +1,30 @@
 #include "pch.h"
+
 #include <Nlohmann/json.hpp>
 #include <MC/Level.hpp>
 #include <MC/Player.hpp>
+#include <ScheduleAPI.h>
+
+#include <mutex>
+#include <shared_mutex>
+
+std::shared_mutex markersReadMutex;
 
 nlohmann::json playerMarkers = nlohmann::json::array();
-
-int MmarkersInit() {
-
+std::string getPlayerMarkers() {
+	std::string markersDump;
+	std::shared_lock lock{ markersReadMutex };
+	markersDump = playerMarkers.dump(4);
+	lock.unlock();
+	return playerMarkers.dump(4);
 }
 
-std::string getPlayerMarkers() {
-	// To-Do: |
-	// 修改此处代码逻辑，使其效率更高
-	// 
-	// SEH_Exception
+// To-Do: |
+// 修改此处代码逻辑，使其效率更高
+// 
+// SEH_Exception
+void updateMarkers() {
+	std::unique_lock lock{ markersReadMutex };
 	playerMarkers = nlohmann::json::array();
 	for (Player* player : Level::getAllPlayers()) {
 		nlohmann::json playerMarker = {};
@@ -32,8 +43,9 @@ std::string getPlayerMarkers() {
 		playerMarker["font"] = "bold 20px Calibri,sans serif";
 		playerMarkers.push_back(playerMarker);
 	}
-	return playerMarkers.dump(4);
+	lock.unlock();
 }
 
-void updatePlayerPos() {
+void markersInit() {
+	Schedule::repeat(updateMarkers, 20);
 }
