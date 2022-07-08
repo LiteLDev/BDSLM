@@ -7,6 +7,8 @@
 #ifndef PCH_H
 #define PCH_H
 
+#define NOMINMAX
+
 // 添加要在此处预编译的标头
 #include "framework.h"
 #include <iostream>
