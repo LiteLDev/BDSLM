@@ -2,7 +2,7 @@
 #include <thread>
 
 int pluginInit() {
-    LL::registerPlugin("BDSLM", "Satellite Map for Bedrock Dedicated Server", LL::Version(0, 3, 0), {
+    LL::registerPlugin("BDSLM", "Satellite Map for Bedrock Dedicated Server", LL::Version(0, 3, 1), {
             { "Author", "PA733" }
         }
     );
