@@ -2,7 +2,7 @@
 #include <thread>
 
 int pluginInit() {
-    LL::registerPlugin("BDSLM", "Satellite Map for Bedrock Dedicated Server", LL::Version(0, 3, 1), {
+    LL::registerPlugin("BDSLM", "Satellite Map for Bedrock Dedicated Server", LL::Version(0, 3, 2), {
             { "Author", "PA733" }
         }
     );
@@ -11,7 +11,7 @@ int pluginInit() {
     markersInit();
     std::thread apiServerThread(startApiServer);
     apiServerThread.detach();
-    startUnmined();
+    preStartUnmined();
     stopNginx();
     startNginx();
 	return 0;

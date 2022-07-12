@@ -9,6 +9,7 @@
 unsigned short int port;
 unsigned short int apiPort;
 
+// To-Do: 自动生成配置文件
 void parseConfFile() {
     YAML::Node conf;
     try {
@@ -17,7 +18,6 @@ void parseConfFile() {
     catch (YAML::BadFile& e) {
         Logger logger("BDSLM");
         logger.error << "配置文件读取失败，请重新检查或全新安装BDSLM。" << logger.endl;
-        // To-Do: 自动生成配置文件
         port = 5000;
         apiPort = 5001;
     }

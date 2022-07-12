@@ -27,7 +27,7 @@ int startApiServer();
 void markersInit();
 int startNginx();
 int stopNginx();
-int startUnmined();
+void preStartUnmined();
 std::string getLevelName();
 void parseConfFile();
 std::string getPlayerMarkers();
