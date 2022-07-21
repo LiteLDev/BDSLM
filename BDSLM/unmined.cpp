@@ -5,6 +5,8 @@
 #include <ScheduleAPI.h>
 #include <MC/Level.hpp>
 #include <EventAPI.h>
+#include <LLAPI.h>
+#include <algorithm>
 
 std::string& trim(std::string& s)
 {
@@ -80,17 +82,22 @@ ScheduleTask checkIfDataSaved;
 void preStartUnmined() {
 	Event::ServerStartedEvent::subscribe([](const Event::ServerStartedEvent& ev) {
 		Logger logger("BDSLM");
+		LL::Plugin* backupHelperPlugin = LL::getPlugin("BackupHelper");
 		// 查找是否有BackupHelper
-		if (Level::runcmdEx("ll list").second.find("BackupHelper") != string::npos) {
-			logger.warn << "检测到不兼容的插件：BackupHelper，将尝试不挂起地图生成图像，请勿反馈由此造成的任何问题。" << logger.endl;
-			logger.info << "对BackupHelper的兼容工作正在进行中，请耐心等待" << logger.endl;
-			startUnmined();
+		if (backupHelperPlugin != nullptr) {
+			std::string backupHelperPluginVersion = backupHelperPlugin->version.toString();
+			backupHelperPluginVersion.erase(std::remove(backupHelperPluginVersion.begin(), backupHelperPluginVersion.end(), '.'), backupHelperPluginVersion.end());
+			if (std::stoi(backupHelperPluginVersion) < 207) {
+				logger.warn << "检测到不兼容的插件：BackupHelper，将尝试不挂起地图生成图像，请勿反馈由此造成的任何问题。" << logger.endl;
+				logger.info << "在新版本BackupHelper（版本号大于等于2.0.7）中，我们已经解决了冲突问题，请更新您的BackupHelper" << logger.endl;
+				logger.info << "string: " << backupHelperPluginVersion << " int: " << std::stoi(backupHelperPluginVersion) << logger.endl;
+				startUnmined();
+				return true;
+			}
 		}
-		else {
-			logger.info << "正在挂起地图，将在挂起后启动渲染" << logger.endl;
-			Level::runcmdEx("save hold");
-			needResumeMap = true;
-		}
+		logger.info << "正在挂起地图，将在挂起后启动渲染" << logger.endl;
+		Level::runcmdEx("save hold");
+		needResumeMap = true;
 		return true;
 		});
 	checkIfDataSaved = Schedule::repeat([&]() {
