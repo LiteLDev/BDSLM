@@ -1,5 +1,4 @@
-# <center> BDSLM </center>
-  <center> An out-of-the-box, high-performance satellite map plugin written for BDS​ </center>
+# BDSLM - An out-of-the-box, high-performance satellite map plugin written for BDS​
 
 ## Rendering
 ![rendering](/docs/assets/rendering.png)
