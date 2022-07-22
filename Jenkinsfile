@@ -8,7 +8,9 @@ pipeline {
         }
         stage('Update Lib') {
             when {
-                changeset "**/LINK.txt"
+                expression{
+                    changeset "**/LINK.txt" || !fileExists('lib/bedrock_server_api.lib')
+                }
             }
             steps {
                 sh label: 'Download Bedrock Server', script: '''
