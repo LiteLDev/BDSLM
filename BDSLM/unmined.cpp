@@ -90,7 +90,6 @@ void preStartUnmined() {
 			if (std::stoi(backupHelperPluginVersion) < 207) {
 				logger.warn << "检测到不兼容的插件：BackupHelper，将尝试不挂起地图生成图像，请勿反馈由此造成的任何问题。" << logger.endl;
 				logger.info << "在新版本BackupHelper（版本号大于等于2.0.7）中，我们已经解决了冲突问题，请更新您的BackupHelper" << logger.endl;
-				logger.info << "string: " << backupHelperPluginVersion << " int: " << std::stoi(backupHelperPluginVersion) << logger.endl;
 				startUnmined();
 				return true;
 			}
