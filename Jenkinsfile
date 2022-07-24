@@ -3,13 +3,15 @@ pipeline {
     stages {
         stage('Update SDK') {
             steps {
-                sh label: 'Fetch LiteLoader SDK', script: 'git submodule foreach "git checkout main && git pull"'
+                sh label: 'Fetch LiteLoader SDK', script: 'git submodule update --init --recursive --depth=1 && git submodule foreach "git checkout main && git pull"'
             }
         }
-        stage('Update Lib') {
-            when {
-                expression{
-                    changeset "**/LINK.txt" || !fileExists('lib/bedrock_server_api.lib')
+        stage('Generate Lib') {
+            when{
+                anyOf {
+                    changeset("**/LINK.txt");
+                    not { expression{return fileExists('lib/bedrock_server_api.lib')}};
+                    not { expression{return fileExists('lib/bedrock_server_var.lib')}}
                 }
             }
             steps {
