@@ -39,6 +39,10 @@ pipeline {
                     mkdir -p ./artifact/BDSLM/nginx/logs
                     mkdir -p ./artifact/BDSLM/nginx/temp
                     cp ./conf/config.yaml ./artifact/BDSLM/
+                    ''' 
+                sh label: 'Zip Unmined Templates', script: ''' 
+                    rm -f ./artifact/BDSLM/unmined/templates/*
+                    7z a ./artifact/BDSLM/unmined/templates/default.web.template.zip ./third-party/unmined/templates/**
                     '''
                 sh label: 'Zip BDSLM', script: '''
                     rm -f artifact.zip
