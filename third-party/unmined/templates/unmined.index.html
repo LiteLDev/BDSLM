@@ -29,6 +29,7 @@
 
     <!-- uNmINeD JS -->
     <script type="text/javascript" src="unmined.openlayers.js"></script>
+    <script type="text/javascript" src="unmined.webchat.js"></script>
 
     <!-- jquery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
@@ -44,9 +45,9 @@
         }
 
         #map {
-            height: 100%;
             width: 100%;
-            background-color: aqua;
+            height: 100%;
+            float: right;
             image-rendering: pixelated;
         }
 
@@ -68,36 +69,75 @@
             box-shadow: 3px 3px 2px rgba(0, 0, 0, 0.2);
         }
 
+        .ol-zoom {
+            z-index: 999;
+        }
+
+        @keyframes frames-fade-out {
+            100% {
+                opacity: 0;
+            }
+        }
+
+        .fade-out {
+            animation: frames-fade-out 1s linear;
+        }
+
         #chatbox {
-            position: absolute;
-            bottom: 0;
-            width: 400px;
-            height: 300px;
-            background-color: rgba(255, 255, 255, 0.8);
-            border-radius: 3px;
-            box-shadow: 3px 3px 2px rgba(0, 0, 0, 0.2);
+            height: 100%;
+            width: 30%;
+            float: left;
             padding: 10px;
-            resize: both;
-        }
-        #chatbox .btn-close {
-            position: absolute;
-            right: 5px;
-        }
-        #chatbox hr {
-            margin: 10px 0;
-        }
-        #chat-messages {
-            padding: 0 5px;
+            background-color: rgba(255, 255, 255, 0);
+            overflow-wrap: break-word;
             overflow-y: scroll;
+            resize: horizontal;
         }
         #chatbox .chat-message .name {
             font-weight: bold;
         }
+        #chatbox .chat-message .time {
+            padding-left: 5px;
+            font-size: 0.8em;
+            color: #888888;
+        }
         #chatbox .chat-message .content {
-            padding: 10px;
-            background: #fff;
-            border-radius: 5px;
-            overflow: hidden;
+            border-radius: 15px;
+            border: 0px;
+            width: max-content;
+            padding: 1px 1em;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+        #chatbox div:last-of-type {
+            font-size: 1.2em;
+        }
+        #chatbox div:last-of-type .content {
+            border-radius: 30px;
+        }
+        #hline {
+            display: none;
+        }
+
+        @media only screen and (max-width: 768px) {
+            #map {
+                height: 100%;
+                width: 100%;
+                float: none;
+            }
+            #chatbox {
+                width: 100%;
+                height: 30%;
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                resize: vertical;
+            }
+            #hline {
+                display: block;
+            }
+            #vline {
+                display: none;
+            }
         }
 
         ::-webkit-scrollbar {
@@ -119,84 +159,27 @@
 </head>
 
 <body>
-    <div id="map"></div>
-
-    <div id="chatbox">
-        <div class="header">
-            <span class="h4">Chat</span>
-            <button type="button" class="btn-close" aria-label="Close" onclick="onCloseChatBox()"></button>
-        </div>
-        <hr/>
-        <div id="chat-messages">
-            <div class="chat-message row">
-                <div class="name">Jasonzyt</div>
-                <div class="content">Hello</div>
-            </div>
-            <div class="chat-message row">
-                <div class="name">Jasonzyt</div>
-                <div class="content text-wrap">Hello aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</div>
-            </div>
-            <div class="chat-message row">
-                <div class="name">Jasonzyt</div>
-                <div class="content text-wrap">草草草草草草草草草草草草草草草草草草草</div>
-            </div>
-            <div class="chat-message row">
-                <div class="name">Jasonzyt</div>
-                <div class="content text-wrap">草草草草草草草草草草草草草草草草草草草</div>
-            </div>
-        </div>
+    <div class="hstack" style="width: 100%; height: 100%;">
+        <div id="chatbox"></div>
+        <div id="vline" class="vr"></div>
+        <div id="hline" class="hr"></div>
+        <div id="map"></div>
     </div>
 
     <script type="text/javascript">
 
+        
+        $('#chatbox').append(`
+        <div class="chat-message" id="msg-sys-0">
+            <div class="header">
+                <span style="color: lightskyblue; font-weight: bold;">系统</span>
+                <span class="time">${new Date().toTimeString().substring(0, 8)}</span>
+            </div>
+            <div class="content">Tips: 游戏聊天将会被同步在这里!</div>
+        </div>`);
+
         if (UnminedMapProperties != null) {
             document.title = UnminedMapProperties.worldName + " - " + document.title;
-        }
-
-        //////// CHAT BOX ////////
-
-        let boxX = 0;
-        let boxY = 0;
-        let mouseX = 0;
-        let mouseY = 0;
-        $('#chatbox').mousedown((ev) => {
-            // Determine if the mouse is at the bottom-right corner of the chat box
-            let x = ev.pageX - $('#chatbox').offset().left;
-            let y = ev.pageY - $('#chatbox').offset().top;
-            if (x > $('#chatbox').width() - 5 && y > $('#chatbox').height() - 5) {
-                // Resize
-                return;
-            }
-
-            boxX = $('#chatbox').offset().left;
-            boxY = $('#chatbox').offset().top;
-            mouseX = ev.clientX;
-            mouseY = ev.clientY;
-            $('#chatbox').css('cursor', 'move');
-        });
-        $('#chatbox').mousemove((ev) => {
-            if (ev.buttons === 1) {
-                let x = ev.pageX - $('#chatbox').offset().left;
-                let y = ev.pageY - $('#chatbox').offset().top;
-                if (x > $('#chatbox').width() - 5 && y > $('#chatbox').height() - 5) {
-                    // Resize
-                    return;
-                }
-                $('#chatbox').css('left', (boxX + ev.clientX - mouseX) + 'px');
-                $('#chatbox').css('top', (boxY + ev.clientY - mouseY) + 'px');
-            }
-        });
-        $('#chatbox').mouseup((ev) => {
-            boxX = $('#chatbox').offset().left;
-            boxY = $('#chatbox').offset().top;
-            mouseX = ev.clientX;
-            mouseY = ev.clientY;
-            $('#chatbox').css('cursor', 'default');
-        });
-
-        function onCloseChatBox() {
-            $('#chatbox').hide();
-            
         }
 
         // if (UnminedCustomMarkers && UnminedCustomMarkers.isEnabled && UnminedCustomMarkers.markers) {
