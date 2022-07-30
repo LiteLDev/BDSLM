@@ -30,9 +30,8 @@ int startNginx();
 int stopNginx();
 void preStartUnmined();
 std::string getLevelName();
-void parseConfFile();
 std::string getPlayerMarkers();
-extern unsigned short int port;
-extern unsigned short int apiPort;
+//extern unsigned short int port;
+//extern unsigned short int apiPort;
 
 #endif //PCH_H

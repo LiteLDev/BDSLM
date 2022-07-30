@@ -7,6 +7,9 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/5.2.0/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/5.2.0/js/bootstrap.min.js"></script>    
+
     <!-- OpenLayers CSS -->
     <link rel="stylesheet" type="text/css"
         href="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.9.0/css/ol.css"
@@ -26,6 +29,7 @@
 
     <!-- uNmINeD JS -->
     <script type="text/javascript" src="unmined.openlayers.js"></script>
+    <script type="text/javascript" src="unmined.webchat.js"></script>
 
     <!-- jquery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
@@ -41,8 +45,9 @@
         }
 
         #map {
-            height: 100%;
             width: 100%;
+            height: 100%;
+            float: right;
             image-rendering: pixelated;
         }
 
@@ -58,28 +63,134 @@
         }
 
         div.ol-mouse-position {
-            background-color: white;
+            background-color: rgb(224, 224, 224);
             padding: 6px;
             border-radius: 3px;
             box-shadow: 3px 3px 2px rgba(0, 0, 0, 0.2);
+        }
+
+        .ol-zoom {
+            z-index: 999;
+        }
+
+        @keyframes frames-fade-out {
+            100% {
+                opacity: 0;
+            }
+        }
+
+        .fade-out {
+            animation: frames-fade-out 1s linear;
+        }
+
+        #chatbox {
+            height: 100%;
+            width: 30%;
+            float: left;
+            padding: 10px;
+            background-color: rgba(255, 255, 255, 0);
+            overflow-wrap: break-word;
+            overflow-y: scroll;
+            resize: horizontal;
+        }
+        #chatbox .chat-message .name {
+            font-weight: bold;
+        }
+        #chatbox .chat-message .time {
+            padding-left: 5px;
+            font-size: 0.8em;
+            color: #888888;
+        }
+        #chatbox .chat-message .content {
+            border-radius: 15px;
+            border: 0px;
+            width: max-content;
+            padding: 1px 1em;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+        #chatbox div:last-of-type {
+            font-size: 1.2em;
+        }
+        #chatbox div:last-of-type .content {
+            border-radius: 30px;
+        }
+        #hline {
+            display: none;
+        }
+
+        @media only screen and (max-width: 768px) {
+            #map {
+                height: 100%;
+                width: 100%;
+                float: none;
+            }
+            #chatbox {
+                width: 100%;
+                height: 30%;
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                resize: vertical;
+            }
+            #hline {
+                display: block;
+            }
+            #vline {
+                display: none;
+            }
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            border-radius: 3px;
+            background: rgba(0, 0, 0, 0.06);
+            box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.08);
+        }
+        ::-webkit-scrollbar-thumb {
+            border-radius: 3px;
+            background: rgba(0, 0, 0, 0.12);
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2);
         }
     </style>
 
 </head>
 
 <body>
-    <div id="map"></div>
+    <div class="hstack" style="width: 100%; height: 100%;">
+        <div id="chatbox"></div>
+        <div id="vline" class="vr"></div>
+        <div id="hline" class="hr"></div>
+        <div id="map"></div>
+    </div>
 
     <script type="text/javascript">
 
-        document.title = UnminedMapProperties.worldName + " - " + document.title;
+        
+        $('#chatbox').append(`
+        <div class="chat-message" id="msg-sys-0">
+            <div class="header">
+                <span style="color: lightskyblue; font-weight: bold;">系统</span>
+                <span class="time">${new Date().toTimeString().substring(0, 8)}</span>
+            </div>
+            <div class="content">Tips: 游戏聊天将会被同步在这里!</div>
+        </div>`);
+
+        if (UnminedMapProperties != null) {
+            document.title = UnminedMapProperties.worldName + " - " + document.title;
+        }
 
         // if (UnminedCustomMarkers && UnminedCustomMarkers.isEnabled && UnminedCustomMarkers.markers) {
         //     UnminedMapProperties.markers = UnminedMapProperties.markers.concat(UnminedCustomMarkers.markers);
         // }
-
-        let unmined = new Unmined();
-        unmined.map('map', UnminedMapProperties, UnminedRegions);
+        try {
+            let unmined = new Unmined();
+            unmined.map('map', UnminedMapProperties, UnminedRegions);
+        } catch (e) {
+            console.log(e);
+        }
 
     </script>
 </body>

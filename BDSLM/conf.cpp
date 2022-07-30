@@ -1,3 +1,4 @@
+#include "conf.h"
 #include "pch.h"
 
 #pragma warning(push)
@@ -6,39 +7,65 @@
 #pragma warning(disable: 4275)
 #include <yaml-cpp/yaml.h>
 
-unsigned short int port;
-unsigned short int apiPort;
+#define CONFIG_PATH "./plugins/BDSLM/config.yaml"
 
-bool confExist() {
-    std::ifstream conf("./plugins/BDSLM/config.yaml");
-    if (!conf) return false;
-    else return true;
+Config config;
+
+void to_yaml(YAML::Node& node, const Config& cfg) {
+    node["webServer"]["port"] = cfg.webServerPort;
+    node["apiServer"]["port"] = cfg.apiServerPort;
+    node["webChat"]["enabled"] = cfg.enableWebChat;
+    node["webChat"]["outbound"]["prefix"] = cfg.webChatOutboundPrefix;
 }
 
-void generateConf() {
-    Logger logger("BDSLM");
-    logger.info << " 未检测到配置文件，生成中……" << logger.endl;
-    YAML::Node conf = YAML::Load("");
-    conf["webServer"]["port"] = 5000;
-    conf["apiServer"]["port"] = 5001;
-    std::ofstream confOut("./plugins/BDSLM/config.yaml", std::fstream::out);
-    confOut << conf;
-    confOut.close();
-}
-
-void parseConfFile() {
-    if (!confExist()) generateConf();
-    YAML::Node conf;
-    try {
-        conf = YAML::LoadFile("./plugins/BDSLM/config.yaml");
-        port = conf["webServer"]["port"].as<unsigned short int>();
-        apiPort = conf["apiServer"]["port"].as<unsigned short int>();
+void from_yaml(const YAML::Node& node, Config& cfg) {
+    if (node["webServer"].IsDefined() && node["webServer"]["port"].IsDefined()) {
+        cfg.webServerPort = node["webServer"]["port"].as<uint16_t>();
     }
-    catch (std::exception e ) {
-        Logger logger("BDSLM");
-        logger.warn << "配置文件无法读取：" << e.what() << logger.endl;
-        logger.warn << "尝试使用默认值……" << logger.endl;
-        port = 5000;
-        apiPort = 5001;
+    if (node["apiServer"].IsDefined() && node["apiServer"]["port"].IsDefined()) {
+        cfg.apiServerPort = node["apiServer"]["port"].as<uint16_t>();
+    }
+    if (node["webChat"].IsDefined()) {
+        if (node["webChat"]["enable"].IsDefined()) {
+            cfg.enableWebChat = node["webChat"]["enable"].as<bool>();
+        }
+        if (node["webChat"]["outbound"].IsDefined()) {
+            if (node["webChat"]["outbound"]["prefix"].IsDefined()) {
+                cfg.webChatOutboundPrefix = node["webChat"]["outbound"]["prefix"].as<std::string>();
+            }
+        }
+    }
+}
+
+void Config::load() {
+    try {
+        if (!std::filesystem::exists(CONFIG_PATH)) {
+            this->save();
+            return;
+        }
+        YAML::Node conf = YAML::LoadFile("./plugins/BDSLM/config.yaml");
+        from_yaml(conf, config);
+        YAML::Node node;
+        to_yaml(node, config);
+		if (conf != node) {
+            Logger("BDSLM").warn("Your config is outdated! Auto-completing...");
+            this->save();
+        }
+    }
+    catch (const std::exception& e) {
+        Logger("BDSLM").error("Failed to load config: {}", e.what());
+        Logger("BDSLM").error("Using the default config");
+    }
+}
+
+void Config::save() {
+    try {
+        std::fstream file(CONFIG_PATH, std::ios::out);
+        YAML::Node node;
+        to_yaml(node, config);
+        file << node;
+    }
+    catch (const std::exception& e) {
+        Logger("BDSLM").error("Failed to save(create) config!");
     }
 }

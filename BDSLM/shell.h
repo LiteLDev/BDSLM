@@ -146,7 +146,7 @@ bool Shell::SetInput(const string& cmd)
 
 	string tmp = cmd + "\r\n";
 	DWORD writeBytes = 0;
-	if (FALSE == ::WriteFile(m_hChildInputWrite, tmp.c_str(), tmp.size(), &writeBytes, NULL))
+	if (FALSE == ::WriteFile(m_hChildInputWrite, tmp.c_str(), (DWORD)tmp.size(), &writeBytes, NULL))
 	{
 		return false;
 	}

@@ -27,6 +27,12 @@
     <ClInclude Include="shell.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="webChat.h">
+      <Filter>源文件\api</Filter>
+    </ClInclude>
+    <ClInclude Include="conf.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -51,6 +57,9 @@
       <Filter>源文件\api</Filter>
     </ClCompile>
     <ClCompile Include="markers.cpp">
+      <Filter>源文件\api</Filter>
+    </ClCompile>
+    <ClCompile Include="webChat.cpp">
       <Filter>源文件\api</Filter>
     </ClCompile>
   </ItemGroup>

@@ -9,7 +9,11 @@ BOOL APIENTRY DllMain(HMODULE hModule,
     switch (ul_reason_for_call)
     {
     case DLL_PROCESS_ATTACH:
-        pluginInit();
+
+        LL::registerPlugin("BDSLM", "Satellite Map for Bedrock Dedicated Server", LL::Version(0, 3, 2), {
+                { "Author", "PA733" }
+            }
+        );
         break;
     case DLL_THREAD_ATTACH:
     case DLL_THREAD_DETACH:
@@ -19,10 +23,8 @@ BOOL APIENTRY DllMain(HMODULE hModule,
     return TRUE;
 }
 
-extern "C" {
-    _declspec(dllexport) void onPostInit() {
-        
-    }
+extern "C" _declspec(dllexport) void onPostInit() {
+    pluginInit();
 }
 
 THook(void, "?leaveGameSync@ServerInstance@@QEAAXXZ", void* a) {
