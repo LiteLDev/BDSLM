@@ -94,7 +94,7 @@ int stopNginx() {
 		}
 		else {
 			Logger logger;
-			logger.error << "failed to create process" << logger.endl;
+			logger.error << "Failed to create process" << logger.endl;
 			return true;
 		}
 	}
