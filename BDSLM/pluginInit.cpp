@@ -1,18 +1,19 @@
 #include "pch.h"
 #include <thread>
+#include "conf.h"
+#include "webChat.h"
 
 int pluginInit() {
-    LL::registerPlugin("BDSLM", "Satellite Map for Bedrock Dedicated Server", LL::Version(0, 3, 2), {
-            { "Author", "PA733" }
-        }
-    );
     std::ios::sync_with_stdio(false);
-    int a = 0;
+    config.load();
+    if (config.enableWebChat) {
+        webChatService.init();
+    }
     markersInit();
     std::thread apiServerThread(startApiServer);
     apiServerThread.detach();
     preStartUnmined();
     stopNginx();
     startNginx();
-	return 0;
+    return 0;
 }
