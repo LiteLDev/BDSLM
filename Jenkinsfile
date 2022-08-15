@@ -31,6 +31,7 @@ pipeline {
                 sh label: 'Pack BDSLM', script: '''
                     rm -rf artifact
                     mkdir artifact
+                    mkdir artifact/lib
                     ls ./x64/Release/
                     cp ./x64/Release/BDSLM.dll ./artifact/
                     mkdir -p ./artifact/BDSLM
@@ -39,6 +40,7 @@ pipeline {
                     mkdir -p ./artifact/BDSLM/nginx/logs
                     mkdir -p ./artifact/BDSLM/nginx/temp
                     cp ./conf/config.yaml ./artifact/BDSLM/
+                    cp ./third-party/yaml-cpp_x64-windows/bin/yaml-cpp.dll ./artifact/lib/
                     ''' 
                 sh label: 'Zip Unmined Templates', script: ''' 
                     rm -f ./artifact/BDSLM/unmined/templates/*
