@@ -1,30 +1,30 @@
 pipeline {
     agent any
     stages {
-        stage('Update SDK') {
-            steps {
-                sh label: 'Fetch LiteLoader SDK', script: 'git submodule update --init --recursive --depth=1 && git submodule foreach "git checkout main && git pull"'
-            }
-        }
-        stage('Generate Lib') {
-            when{
-                anyOf {
-                    changeset("**/LINK.txt");
-                    not { expression{return fileExists('lib/bedrock_server_api.lib')}};
-                    not { expression{return fileExists('lib/bedrock_server_var.lib')}}
-                }
-            }
-            steps {
-                sh label: 'Download Bedrock Server', script: '''
-                    curl -L -o server.zip $(cat ./Scripts/LINK.txt)
-                    unzip -o -q server.zip -d Server
-                    '''
-                sh label: 'Generate Lib', script: '''
-                    mkdir -p lib
-                    cd LiteLoaderSDK/Tools && ./LibraryBuilder.exe -o ../../lib/ ../../Server/
-                    '''
-            }
-        }
+        // stage('Update SDK') {
+        //     steps {
+        //         sh label: 'Fetch LiteLoader SDK', script: 'git submodule update --init --recursive --depth=1 && git submodule foreach "git checkout main && git pull"'
+        //     }
+        // }
+        // stage('Generate Lib') {
+        //     when{
+        //         anyOf {
+        //             changeset("**/LINK.txt");
+        //             not { expression{return fileExists('lib/bedrock_server_api.lib')}};
+        //             not { expression{return fileExists('lib/bedrock_server_var.lib')}}
+        //         }
+        //     }
+        //     steps {
+        //         sh label: 'Download Bedrock Server', script: '''
+        //             curl -L -o server.zip $(cat ./Scripts/LINK.txt)
+        //             unzip -o -q server.zip -d Server
+        //             '''
+        //         sh label: 'Generate Lib', script: '''
+        //             mkdir -p lib
+        //             cd LiteLoaderSDK/Tools && ./LibraryBuilder.exe -o ../../lib/ ../../Server/
+        //             '''
+        //     }
+        // }
         stage('Build') {
             steps {
                 sh label: 'Compile BDSLM', script: ' /c/Program\\ Files\\ \\(x86\\)/Microsoft\\ Visual\\ Studio/2022/BuildTools/MSBuild/Current/Bin/msbuild.exe -m -p:Configuration=Release;Platform=x64'
