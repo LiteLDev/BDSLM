@@ -1,9 +1,9 @@
 #include "pch.h"
 
 #include <Nlohmann/json.hpp>
-#include <MC/Level.hpp>
-#include <MC/Player.hpp>
-#include <ScheduleAPI.h>
+#include "ScheduleAPI.h"
+#include "Player.h"
+#include "Command.h"
 
 #include <mutex>
 #include <shared_mutex>
@@ -26,7 +26,7 @@ std::string getPlayerMarkers() {
 void updateMarkers() {
 	std::unique_lock lock{ markersReadMutex };
 	playerMarkers = nlohmann::json::array();
-	for (Player* player : Level::getAllPlayers()) {
+	for (Player* player : Command::serverLevel->getAllPlayers()) {
 		nlohmann::json playerMarker = {};
 		Vec3 playerPos = player->getPos();
 		playerMarker["x"] = playerPos.x;
@@ -36,7 +36,7 @@ void updateMarkers() {
 		playerMarker["imageAnchor"][0] = 0.5;
 		playerMarker["imageAnchor"][1] = 1;
 		playerMarker["imageScale"] = 1;
-		playerMarker["text"] = player->getName();
+		playerMarker["text"] = player->getNameTag();
 		playerMarker["textColor"] = "red";
 		playerMarker["offsetX"] = 0;
 		playerMarker["offsetY"] = 20;

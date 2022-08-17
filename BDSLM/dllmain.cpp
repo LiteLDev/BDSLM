@@ -1,5 +1,7 @@
 // dllmain.cpp : 定义 DLL 应用程序的入口点。
 #include "pch.h"
+#include "THook/mod.h"
+#include "THook/SymHook.h"
 
 BOOL APIENTRY DllMain(HMODULE hModule,
     DWORD  ul_reason_for_call,
@@ -25,7 +27,8 @@ extern "C" {
     }
 }
 
-THook(void, "?leaveGameSync@ServerInstance@@QEAAXXZ", void* a) {
+using namespace SymHook;
+THook(void, MSSYM_B1QE13leaveGameSyncB1AE14ServerInstanceB2AAA7QEAAXXZ, void* a) {
     stopNginx();
     original(a);
 }

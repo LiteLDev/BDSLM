@@ -142,7 +142,7 @@
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\third-party\yaml-cpp_x64-windows\include;$(ProjectDir)..\LiteLoaderSDK\Header;$(ProjectDir)..\LiteLoaderSDK\Header\third-party</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>E:\MinecraftBE\Custom-plugins\BDSLM\third-party\THook;E:\MinecraftBE\Custom-plugins\BDSLM\third-party\Nlohmann;E:\MinecraftBE\Custom-plugins\BDSLM\BDSLM\Tool;$(ProjectDir)..\third-party\yaml-cpp_x64-windows\include</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
       <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
@@ -163,11 +163,11 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;BDSLM_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\third-party\yaml-cpp_x64-windows\include;$(ProjectDir)..\LiteLoaderSDK\Header;$(ProjectDir)..\LiteLoaderSDK\Header\third-party</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\third-party\yaml-cpp_x64-windows\include;E:\MinecraftBE\Custom-plugins\BDSLM\BDSLM\Tool;E:\MinecraftBE\Custom-plugins\BDSLM\third-party</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
       <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
@@ -178,16 +178,22 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
-      <AdditionalLibraryDirectories>$(ProjectDir)..\third-party\yaml-cpp_x64-windows\lib;$(ProjectDir)..\LiteLoaderSDK\Lib;$(ProjectDir)..\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(ProjectDir)..\third-party\yaml-cpp_x64-windows\lib;E:\MinecraftBE\Custom-plugins\BDSLM\third-party\THook;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>yaml-cpp.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Command.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="Player.h" />
     <ClInclude Include="shell.h" />
+    <ClInclude Include="Tool\CsLock.h" />
+    <ClInclude Include="Tool\Message.h" />
+    <ClInclude Include="Tool\ScheduleAPI.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Command.cpp" />
     <ClCompile Include="conf.cpp" />
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="apiServer.cpp" />
@@ -199,7 +205,11 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="Player.cpp" />
     <ClCompile Include="pluginInit.cpp" />
+    <ClCompile Include="Tool\CsLock.cpp" />
+    <ClCompile Include="Tool\Message.cpp" />
+    <ClCompile Include="Tool\ScheduleAPI.cpp" />
     <ClCompile Include="unmined.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

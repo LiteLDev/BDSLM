@@ -13,15 +13,17 @@
 #include "framework.h"
 #include <iostream>
 #include <Windows.h>
+#include "Message.h"
+#include <fstream>
 
-#include <LLAPI.h>
-#include <LoggerAPI.h>
-#include <I18nAPI.h>
-
-#pragma comment(lib, "bedrock_server_api.lib")
-#pragma comment(lib, "bedrock_server_var.lib")
-#pragma comment(lib, "SymDBHelper.lib")
-#pragma comment(lib, "LiteLoader.lib")
+//#include <LLAPI.h>
+//#include <LoggerAPI.h>
+//#include <I18nAPI.h>
+//
+//#pragma comment(lib, "bedrock_server_api.lib")
+//#pragma comment(lib, "bedrock_server_var.lib")
+//#pragma comment(lib, "SymDBHelper.lib")
+//#pragma comment(lib, "LiteLoader.lib")
 
 int pluginInit();
 int startApiServer();

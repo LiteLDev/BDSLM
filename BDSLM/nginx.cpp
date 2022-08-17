@@ -1,5 +1,7 @@
 #include "pch.h"
 
+using namespace std;
+
 int writeNgxConf(unsigned short int port) {
     string fstr("listen      " + std::to_string(port) + ";\nlisten        [::]:" + std::to_string(port) + ";\n"+"set $apiPort "+ std::to_string(apiPort) +";");
     try
@@ -10,8 +12,7 @@ int writeNgxConf(unsigned short int port) {
     }
     catch (std::exception& e)
     {
-        Logger logger("BDSLM");
-        logger.error << "error happened:" << e.what() << logger.endl;
+        Message::logger( "error happened: %s" , e.what());
     }
     return 0;
 }
@@ -58,8 +59,7 @@ int startNginx() {
         return true;
     }
     else {
-        Logger logger;
-        logger.error << "failed to create process" << logger.endl;
+        Message::logger("failed to create process");
         return false;
     }
 }
@@ -95,8 +95,7 @@ int stopNginx() {
             return false;
         }
         else {
-            Logger logger;
-            logger.error << "failed to create process" << logger.endl;
+            Message::logger("failed to create process");
             return true;
         }
     }
