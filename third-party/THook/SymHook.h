@@ -29,4 +29,12 @@ namespace SymHook{
     // [符号] ?sendServerStarted@ServerCommunicationInterface@@QEAAXXZ
     constexpr RVA MSSYM_B1QE17sendServerStartedB1AE28ServerCommunicationInterfaceB2AAA7QEAAXXZ = 0x004E3390;
 
+    // [原型] public: virtual void __cdecl ServerNetworkHandler::handle(class NetworkIdentifier const & __ptr64,class TextPacket const & __ptr64) __ptr64
+    // [符号] ?handle@ServerNetworkHandler@@UEAAXAEBVNetworkIdentifier@@AEBVTextPacket@@@Z
+    constexpr RVA MSSYM_B1QA6handleB1AE20ServerNetworkHandlerB2AAE26UEAAXAEBVNetworkIdentifierB2AAE14AEBVTextPacketB3AAAA1Z = 0x003A00B0;
+
+    // [原型] public: unsigned __int64 __cdecl NetworkIdentifier::getHash(void)const __ptr64
+    // [符号] ?getHash@NetworkIdentifier@@QEBA_KXZ
+    constexpr RVA MSSYM_B1QA7getHashB1AE17NetworkIdentifierB2AAA4QEBAB1UA3KXZ = 0x00339FB0;
+
 }

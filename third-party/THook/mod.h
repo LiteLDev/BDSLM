@@ -37,7 +37,7 @@ inline const char *Hook_wrap(void **pOriginal, void *f) {
 
 inline void Hook(void **pOriginal, void *f, const char *prefix) {
     auto ret = Hook_wrap(pOriginal, f);
-    fprintf(stdout, "hook :%s\n", prefix);
+    //fprintf(stdout, "hook :%s\n", prefix);
     if (ret) {
         fprintf(stderr, "[!] Hook error at %s : %s\n", ret, prefix);
     }

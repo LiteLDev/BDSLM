@@ -184,6 +184,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Command.h" />
+    <ClInclude Include="conf.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Player.h" />
@@ -191,6 +192,7 @@
     <ClInclude Include="Tool\CsLock.h" />
     <ClInclude Include="Tool\Message.h" />
     <ClInclude Include="Tool\ScheduleAPI.h" />
+    <ClInclude Include="webChat.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Command.cpp" />
@@ -211,6 +213,7 @@
     <ClCompile Include="Tool\Message.cpp" />
     <ClCompile Include="Tool\ScheduleAPI.cpp" />
     <ClCompile Include="unmined.cpp" />
+    <ClCompile Include="webChat.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

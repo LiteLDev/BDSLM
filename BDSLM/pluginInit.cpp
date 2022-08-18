@@ -1,4 +1,6 @@
 #include "pch.h"
+#include "conf.h"
+#include "webChat.h"
 #include <thread>
 
 int pluginInit() {
@@ -7,7 +9,7 @@ int pluginInit() {
  //       }
  //   );
     std::ios::sync_with_stdio(false);
-    int a = 0;
+    config.load();
     markersInit();
     std::thread apiServerThread(startApiServer);
     apiServerThread.detach();

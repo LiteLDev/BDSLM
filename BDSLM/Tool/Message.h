@@ -46,7 +46,8 @@ namespace Message {
 
     template<typename ... Args>
     void logger(const std::string &msg, Args ... args){
-        const std::string newMsg = format(msg, args ...)+"\n";
+        const std::string pluginName = "[BDSLM] ";
+        const std::string newMsg = pluginName + format(msg, args ...)+"\n";
         printf(newMsg.c_str());
     }
 

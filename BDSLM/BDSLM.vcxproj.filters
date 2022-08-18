@@ -42,6 +42,12 @@
     <ClInclude Include="Tool\ScheduleAPI.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="conf.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="webChat.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -81,6 +87,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="Tool\ScheduleAPI.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="webChat.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

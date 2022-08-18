@@ -4,13 +4,13 @@
 #include "Player.h"
 #include "THook/SymHook.h"
 
-//uint64_t NetworkIdentifier::getHash() {
-//    return SYM_CALL(
-//            uint64_t(*)(NetworkIdentifier * ),
-//        0x00339FB0,
-//            this
-//    );
-//}
+uint64_t NetworkIdentifier::getHash() {
+    return SYM_CALL(
+            uint64_t(*)(NetworkIdentifier * ),
+        SymHook::MSSYM_B1QA7getHashB1AE17NetworkIdentifierB2AAA4QEBAB1UA3KXZ,
+            this
+    );
+}
 
 std::string Player::getNameTag() {
     return *SYM_CALL(std::string * (*)(Player * ),
@@ -31,7 +31,7 @@ Vec3 Player::getPos() {
 //    );
 //}
 
-//NetworkIdentifier *Player::getClientID() {
-//    //! from  ServerPlayer::isHostingPlayer
-//    return reinterpret_cast<NetworkIdentifier *>(this+0x980);
-//}
+NetworkIdentifier *Player::getClientID() {
+    //! from  ServerPlayer::isHostingPlayer
+    return reinterpret_cast<NetworkIdentifier *>(this+0x980);
+}

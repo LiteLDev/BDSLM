@@ -7,7 +7,6 @@
 #include "../third-party/THook/mod.h"
 #include "../third-party/THook/SymHook.h"
 #include "seh_exception.hpp"
-#include "../Command.h"
 
 using namespace std;
 
@@ -228,11 +227,7 @@ ScheduleTask repeat(std::function<void(void)> task, unsigned long long tickRepea
 
 using namespace SymHook;
 THook(void, MSSYM_B1QA4tickB1AE11ServerLevelB2AAA7UEAAXXZ,
-      Command::Level* _this) {
-    //初始化Server Level
-    if (!Command::serverLevel) {
-        setLevel(_this);
-    }
+      void* _this) {
 
     original(_this);
     taskQueue.tick();

@@ -1,9 +1,10 @@
 #include "pch.h"
+#include "conf.h"
 
 using namespace std;
 
 int writeNgxConf(unsigned short int port) {
-    string fstr("listen      " + std::to_string(port) + ";\nlisten        [::]:" + std::to_string(port) + ";\n"+"set $apiPort "+ std::to_string(apiPort) +";");
+    string fstr("listen      " + std::to_string(port) + ";\nlisten        [::]:" + std::to_string(port) + ";\n"+"set $apiPort "+ std::to_string(config.apiServerPort) +";");
     try
     {
         std::fstream fout("plugins/BDSLM/nginx/conf/port.conf", std::ios::out | std::ios::trunc);
@@ -29,8 +30,7 @@ inline bool exists_ngxPidFile(const std::string& path) {
 }
 
 int startNginx() {
-    parseConfFile();
-    writeNgxConf(port);
+    writeNgxConf(config.webServerPort);
     char cWindowsDirectory[MAX_PATH]{};
     LPTSTR cWinDir = new TCHAR[MAX_PATH];
     GetCurrentDirectory(MAX_PATH, cWinDir);
@@ -59,7 +59,7 @@ int startNginx() {
         return true;
     }
     else {
-        Message::logger("failed to create process");
+        Message::logger("Failed to create process");
         return false;
     }
 }

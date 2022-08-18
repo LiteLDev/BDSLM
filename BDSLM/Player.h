@@ -9,9 +9,9 @@
 #include <string>
 #include <THook/mod.h>
 
-//struct NetworkIdentifier {
-//    uint64_t getHash();
-//};
+struct NetworkIdentifier {
+    uint64_t getHash();
+};
 
 struct Vec3 {
     float x;
@@ -40,7 +40,7 @@ class Player {
 public:
     std::string getNameTag();
     Vec3 getPos();
-    //NetworkIdentifier *getClientID();
+    NetworkIdentifier *getClientID();
     //CommandPermissionLevel getCommandPermissionLevel();
 
 };

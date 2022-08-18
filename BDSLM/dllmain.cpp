@@ -21,10 +21,7 @@ BOOL APIENTRY DllMain(HMODULE hModule,
     return TRUE;
 }
 
-extern "C" {
-    _declspec(dllexport) void onPostInit() {
-        
-    }
+extern "C" _declspec(dllexport) void onPostInit() {
 }
 
 using namespace SymHook;

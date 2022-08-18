@@ -22,7 +22,7 @@ namespace Command {
 
     };
 
-    static Level* serverLevel;
+    extern Level* serverLevel;
 
     void setLevel(Level* level);
 

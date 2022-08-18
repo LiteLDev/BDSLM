@@ -7,6 +7,7 @@
 #include <sstream>
 #include <filesystem>
 
+using namespace SymHook;
 namespace Command {
     void Level::forEachPlayer(const std::function<void(Player*)>& todo) {
         //!硬编码
@@ -37,7 +38,6 @@ namespace Command {
     }
 
     static VA cmdQueue = 0;
-    using namespace SymHook;
     //获取命令队列
     THook(VA,
         MSSYM_MD5_3b8fb7204bf8294ee636ba7272eec000,
@@ -60,16 +60,17 @@ namespace Command {
         return false;
     }
 
+    Level* serverLevel = nullptr;
     void setLevel(Level* level) {
         serverLevel = level;
     }
 
-    //THook(void, MSSYM_B1QA4tickB1AE11ServerLevelB2AAA7UEAAXXZ,
-    //    Command::Level* _this)
-    //{
-    //    if (!Command::serverLevel) {
-    //        setLevel(_this);
-    //    }
-    //    return original(_this);
-    //}
+}
+THook(void, MSSYM_B1QA4tickB1AE11ServerLevelB2AAA7UEAAXXZ,
+    Command::Level* _this)
+{
+    if (!Command::serverLevel) {
+        Command::setLevel(_this);
+    }
+    return original(_this);
 }

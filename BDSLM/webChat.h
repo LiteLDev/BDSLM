@@ -3,8 +3,6 @@
 #include <random>
 #include "Player.h"
 #include <httplib/httplib.h>
-#include "THook/mod.h"
-#include "THook/SymHook.h"
 #include "Nlohmann/json.hpp"
 #pragma warning(disable: 4996)
 
@@ -35,15 +33,15 @@ inline void to_json(nlohmann::json& j, const WebChatMessage& msg) {
 
 class WebChatService {
 
-	int current_id_ = 0;
 
 public:
+	int current_id_ = 0;
 
 	std::vector<WebChatMessage> msg_list_;
 
 	WebChatService() = default;
 
-	void init();
+	//void init();
 	std::vector<WebChatMessage> getMessages(int startid = 0);
 
 };
