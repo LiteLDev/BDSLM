@@ -10,7 +10,9 @@ public:
 	uint16_t apiServerPort = 5001;
 	bool enableWebChat = true;
 	std::string webChatOutboundPrefix = "<span style=\"color: cyan;\">[SERVER]</span>";
-
+	int16_t zoomIn = -2;
+	int16_t zoomOut = 4;
+	
 	void load();
 	void save();
 	

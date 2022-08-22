@@ -16,6 +16,8 @@ void to_yaml(YAML::Node& node, const Config& cfg) {
     node["apiServer"]["port"] = cfg.apiServerPort;
     node["webChat"]["enabled"] = cfg.enableWebChat;
     node["webChat"]["outbound"]["prefix"] = cfg.webChatOutboundPrefix;
+    node["mapRender"]["zoomIn"] = cfg.zoomIn;
+    node["mapRender"]["zoomOut"] = cfg.zoomOut;
 }
 
 void from_yaml(const YAML::Node& node, Config& cfg) {
@@ -33,6 +35,14 @@ void from_yaml(const YAML::Node& node, Config& cfg) {
             if (node["webChat"]["outbound"]["prefix"].IsDefined()) {
                 cfg.webChatOutboundPrefix = node["webChat"]["outbound"]["prefix"].as<std::string>();
             }
+        }
+    }
+    if (node["mapRender"].IsDefined()) {
+        if (node["mapRender"]["zoomIn"].IsDefined()) {
+            cfg.zoomIn = node["mapRender"]["zoomIn"].as<int16_t>();
+        }
+        if (node["mapRender"]["zoomOut"].IsDefined()) {
+            cfg.zoomOut = node["mapRender"]["zoomOut"].as<int16_t>();
         }
     }
 }

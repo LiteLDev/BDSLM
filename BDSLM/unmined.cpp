@@ -1,6 +1,7 @@
 // 本文件内定义的函数主要负责unmined相关操作（启动、监控）
 #include "pch.h"
 #include "shell.h"
+#include "conf.h"
 #include <LoggerAPI.h>
 #include <ScheduleAPI.h>
 #include <MC/Level.hpp>
@@ -44,7 +45,7 @@ int startUnmined() {
 		levelName = "level";
 	}
 	bool status = true;
-	status = shell.RunProcess(TextEncoding::toUnicode(".\\plugins\\BDSLM\\unmined\\unmined-cli.exe web render --world=\"./worlds/" + levelName + "\" --output=\"./plugins/BDSLM/unmined-web/\" --imageformat=webp -c --zoomin=-2 --zoomout=4"));
+	status = shell.RunProcess(TextEncoding::toUnicode(".\\plugins\\BDSLM\\unmined\\unmined-cli.exe web render --world=\"./worlds/" + levelName + "\" --output=\"./plugins/BDSLM/unmined-web/\" --imageformat=webp -c --zoomin=" + std::to_string(config.zoomIn) + " --zoomout=" + std::to_string(config.zoomOut)));
 	Schedule::repeat([]() {
 		string line;
 		shell.GetOutput(1, line);
@@ -55,6 +56,7 @@ int startUnmined() {
 				Level::runcmdEx("save resume");
 			}
 		}
+		// 在此处判断unmined无法接受输入参数时直接退出的行为，否则BDSLM将卡在挂起阶段
 		else if (line.find("exception") != string::npos) {
 			Logger logger("BDSLM");
 			if (needResumeMap) {
@@ -73,7 +75,7 @@ int startUnmined() {
 		if (errorMode) {
 			std::cout << line;
 		}
-	}, 40);
+		}, 40);
 	return status;
 }
 
