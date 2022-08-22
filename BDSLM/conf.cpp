@@ -75,7 +75,7 @@ void Config::save() {
         to_yaml(node, config);
         file << node;
     }
-    catch (const std::exception& e) {
+    catch (const std::exception) {
         Logger("BDSLM").error("Failed to save(create) config!");
     }
 }
