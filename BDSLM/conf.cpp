@@ -57,7 +57,7 @@ void Config::load() {
         from_yaml(conf, config);
         YAML::Node node;
         to_yaml(node, config);
-		if (conf != node) {
+		if (YAML::Dump(conf) != YAML::Dump(node)) {
             Logger("BDSLM").warn("Your config is outdated! Auto-completing...");
             this->save();
         }
