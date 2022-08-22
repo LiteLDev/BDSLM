@@ -92,14 +92,17 @@
             overflow-y: scroll;
             resize: horizontal;
         }
+
         #chatbox .chat-message .name {
             font-weight: bold;
         }
+
         #chatbox .chat-message .time {
             padding-left: 5px;
             font-size: 0.8em;
             color: #888888;
         }
+
         #chatbox .chat-message .content {
             border-radius: 15px;
             border: 0px;
@@ -107,12 +110,15 @@
             padding: 1px 1em;
             background-color: rgba(0, 0, 0, 0.5);
         }
+
         #chatbox div:last-of-type {
             font-size: 1.2em;
         }
+
         #chatbox div:last-of-type .content {
             border-radius: 30px;
         }
+
         #hline {
             display: none;
         }
@@ -123,6 +129,7 @@
                 width: 100%;
                 float: none;
             }
+
             #chatbox {
                 width: 100%;
                 height: 30%;
@@ -131,9 +138,11 @@
                 left: 0;
                 resize: vertical;
             }
+
             #hline {
                 display: block;
             }
+
             #vline {
                 display: none;
             }
@@ -143,11 +152,13 @@
             width: 6px;
             height: 6px;
         }
+
         ::-webkit-scrollbar-track {
             border-radius: 3px;
             background: rgba(0, 0, 0, 0.06);
             box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.08);
         }
+
         ::-webkit-scrollbar-thumb {
             border-radius: 3px;
             background: rgba(0, 0, 0, 0.12);
@@ -167,7 +178,7 @@
 
     <script type="text/javascript">
 
-        
+
         $('#chatbox').append(`
         <div class="chat-message" id="msg-sys-0">
             <div class="header">
