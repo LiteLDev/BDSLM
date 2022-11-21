@@ -213,6 +213,7 @@ function addTerrainColors(b) {
     b.color("map.endstone", 63, 35, 70);
     b.color("map.purpur", 300, 20, 45);
     b.color("map.chorus", 300, 25, 30);
+    b.color("map.sculk", 180, 70, 30);
 
     b.color("map.netherrack", 0, 60, 25);
     b.color("map.soulsand", 24, 30, 25);
@@ -251,6 +252,7 @@ function addTerrainColors(b) {
     b.color("map.wood.spruce", 30, 45, 30);
     b.color("map.wood.crimson", 333, 35, 30);
     b.color("map.wood.warped", 174, 55, 30);
+    b.color("map.wood.mangrove", 12, 45, 30);
 
     b.color("map.stone", 0, 0, 70);
     b.color("map.rock", 0, 0, 70);
@@ -534,6 +536,7 @@ function addDefaultStyles(b) {
     b.style("end_stone").color("map.endstone");
     b.style("#purpur").color("map.purpur");
     b.style("#chorus").color("map.chorus");
+    b.style("#sculk").color("map.sculk");
 
     if (b.isOverworld) {
         if (b.s[SETTING.useUnderground]) {
@@ -599,4 +602,5 @@ function addWoodStyles(b) {
     b.style("#spruce #artificial").color("map.wood.spruce");
     b.style("#crimson #artificial").color("map.wood.crimson");
     b.style("#warped #artificial").color("map.wood.warped");
+    b.style("#mangrove #artificial").color("map.wood.mangrove");
 }

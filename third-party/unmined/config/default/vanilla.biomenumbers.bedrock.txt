@@ -81,3 +81,5 @@
 187 = minecraft:lush_caves
 188 = minecraft:dripstone_caves
 189 = minecraft:stony_peaks
+190 = minecraft:deep_dark
+191 = minecraft:mangrove_swamp

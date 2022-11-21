@@ -84,7 +84,7 @@ ScheduleTask checkIfDataSaved;
 void preStartUnmined() {
 	Event::ServerStartedEvent::subscribe([](const Event::ServerStartedEvent& ev) {
 		Logger logger("BDSLM");
-		LL::Plugin* backupHelperPlugin = LL::getPlugin("BackupHelper");
+		ll::Plugin* backupHelperPlugin = ll::getPlugin("BackupHelper");
 		// 查找是否有BackupHelper
 		if (backupHelperPlugin != nullptr) {
 			std::string backupHelperPluginVersion = backupHelperPlugin->version.toString();

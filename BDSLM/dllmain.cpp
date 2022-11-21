@@ -10,7 +10,7 @@ BOOL APIENTRY DllMain(HMODULE hModule,
     {
     case DLL_PROCESS_ATTACH:
 
-        LL::registerPlugin("BDSLM", "Satellite Map for Bedrock Dedicated Server", LL::Version(0, 3, 3), {
+        ll::registerPlugin("BDSLM", "Satellite Map for Bedrock Dedicated Server", ll::Version(0, 3, 4), {
                 { "Author", "PA733" }
             }
         );
