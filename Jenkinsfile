@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('Update SDK') {
             steps {
-                sh label: 'Fetch LiteLoader SDK', script: 'git submodule update --init --recursive --depth=1 && git submodule foreach "git checkout main && git pull"'
+                sh label: 'Fetch LiteLoader SDK', script: 'git submodule update --init --recursive --depth=1'
             }
         }
         stage('Generate Lib') {
