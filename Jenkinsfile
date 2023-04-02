@@ -59,7 +59,7 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                archiveArtifactsToQiniu allowEmptyArchive: false, caseSensitive: false, excludeFilesGlob: '', includeFilesGlob: '**BDSLM.zip', onlyIfSuccessful: true, useDefaultExcludes: false
+                archiveArtifacts artifacts: '**BDSLM.zip', fingerprint: true, onlyIfSuccessful: true
             }
         }
     }
