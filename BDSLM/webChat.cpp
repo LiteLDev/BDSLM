@@ -17,7 +17,12 @@ void WebChatService::init() {
 			ev.mMessage,
 			ts
 		};
-		auto str = nlohmann::json(msg).dump();
+		try {
+			auto str = nlohmann::json(msg).dump();
+		}
+		catch (const std::exception& e) {
+			return true;
+		}
 		// Clear old messages
 		while (!msg_list_.empty() && ts - msg_list_.front().utctime >= MSG_STORE_TIME) {
 			msg_list_.erase(msg_list_.begin());
