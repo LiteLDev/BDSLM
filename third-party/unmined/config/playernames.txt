@@ -1,0 +1,37 @@
+// Player names
+// ============
+//
+//
+// uNmIneD use mappings from this file to determine player names from IDs.
+//
+// - Add your player IDs and names to this file, one player ID per line
+// - For Bedrock Server players you can use MSAIDs
+// - If you use Bedrock Viz, you can copy players form your bedrock_viz.cfg
+// - uNmINeD GUI also updates this file when you add or modify player names
+//
+//
+// Accepted formats:
+//
+// 1. Simple:
+//
+//      playerId playerName
+//
+//	  Examples:
+//
+//		00000000-0000-0000-0000-000000000000 nobody
+//      server_00000000-0000-0000-0000-000000000000 nobody
+//
+// 2. Copied from bedrock_viz.cfg:
+//
+//      player-id: playerId playerName
+//
+//	  Example:
+//
+//      player-id: server_00000000-0000-0000-0000-000000000000 nobody
+//
+// Lines starting with // or # are ignored.
+// Values copied from bedrock_viz.cfg are ignored except for player names.
+//
+
+
+//df5e259a-16ef-4f98-a6f2-5f29142634df megasys

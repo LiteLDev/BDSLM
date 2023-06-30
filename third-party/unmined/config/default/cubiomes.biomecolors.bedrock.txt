@@ -1,0 +1,180 @@
+# !!! This file is auto-generated !!!
+#
+# AMIDST/Cubiomes style colors for vanilla bedrock edition biomes
+#
+# Most of these color values are copied from the cubiomes project (https://github.com/Cubitect/cubiomes)
+# License: MIT
+#
+# Biome name                                       = Color
+# -----------------------------------------------------------------------
+
+
+# Beach
+# -----
+
+minecraft:beach                                    = rgb(250, 222, 85)
+minecraft:cold_beach                               = rgb(250, 240, 192)
+minecraft:stone_beach                              = rgb(162, 162, 132)
+
+
+# Desert
+# ------
+
+minecraft:desert                                   = rgb(250, 148, 24)
+minecraft:desert_hills                             = rgb(210, 95, 18)
+minecraft:desert_mutated                           = rgb(255, 188, 64)
+
+
+# Extreme Hills
+# -------------
+
+minecraft:extreme_hills                            = rgb(96, 96, 96)
+minecraft:extreme_hills_edge                       = rgb(114, 120, 154)
+minecraft:extreme_hills_mutated                    = rgb(136, 136, 136)
+minecraft:extreme_hills_plus_trees                 = rgb(91, 115, 82)
+minecraft:extreme_hills_plus_trees_mutated         = rgb(131, 155, 122)
+minecraft:frozen_peaks                             = rgb(176, 179, 206)
+minecraft:grove                                    = rgb(71, 114, 108)
+minecraft:jagged_peaks                             = rgb(220, 220, 200)
+minecraft:meadow                                   = rgb(96, 164, 69)
+minecraft:snowy_slopes                             = rgb(196, 196, 196)
+minecraft:stony_peaks                              = rgb(123, 143, 116)
+
+
+# Forest
+# ------
+
+minecraft:birch_forest                             = rgb(48, 116, 68)
+minecraft:birch_forest_hills                       = rgb(31, 95, 50)
+minecraft:birch_forest_hills_mutated               = rgb(71, 135, 90)
+minecraft:birch_forest_mutated                     = rgb(88, 156, 108)
+minecraft:cherry_groves                            = rgb(255, 145, 200)
+minecraft:flower_forest                            = rgb(45, 142, 73)
+minecraft:forest                                   = rgb(5, 102, 33)
+minecraft:forest_hills                             = rgb(34, 85, 28)
+minecraft:roofed_forest                            = rgb(64, 81, 26)
+minecraft:roofed_forest_mutated                    = rgb(104, 121, 66)
+
+
+# Icy
+# ---
+
+minecraft:ice_mountains                            = rgb(160, 160, 160)
+minecraft:ice_plains                               = rgb(255, 255, 255)
+minecraft:ice_plains_spikes                        = rgb(180, 220, 220)
+
+
+# Jungle
+# ------
+
+minecraft:bamboo_jungle                            = rgb(132, 149, 0)
+minecraft:bamboo_jungle_hills                      = rgb(92, 108, 4)
+minecraft:jungle                                   = rgb(80, 123, 10)
+minecraft:jungle_edge                              = rgb(96, 147, 15)
+minecraft:jungle_edge_mutated                      = rgb(136, 187, 55)
+minecraft:jungle_hills                             = rgb(44, 66, 5)
+minecraft:jungle_mutated                           = rgb(120, 163, 50)
+
+
+# Mesa
+# ----
+
+minecraft:mesa                                     = rgb(217, 69, 21)
+minecraft:mesa_bryce                               = rgb(255, 109, 61)
+minecraft:mesa_plateau                             = rgb(202, 140, 101)
+minecraft:mesa_plateau_mutated                     = rgb(216, 191, 141)
+minecraft:mesa_plateau_stone                       = rgb(176, 151, 101)
+minecraft:mesa_plateau_stone_mutated               = rgb(242, 180, 141)
+
+
+# Mushroom
+# --------
+
+minecraft:mushroom_island                          = rgb(255, 0, 255)
+minecraft:mushroom_island_shore                    = rgb(160, 0, 255)
+
+
+# Nether
+# ------
+
+minecraft:basalt_deltas                            = rgb(100, 95, 99)
+minecraft:crimson_forest                           = rgb(152, 26, 17)
+minecraft:hell                                     = rgb(87, 37, 38)
+minecraft:soulsand_valley                          = rgb(77, 58, 46)
+minecraft:warped_forest                            = rgb(73, 144, 123)
+
+
+# Ocean
+# -----
+
+minecraft:cold_ocean                               = rgb(32, 32, 112)
+minecraft:deep_cold_ocean                          = rgb(32, 32, 56)
+minecraft:deep_frozen_ocean                        = rgb(64, 64, 144)
+minecraft:deep_lukewarm_ocean                      = rgb(0, 0, 64)
+minecraft:deep_ocean                               = rgb(0, 0, 48)
+minecraft:deep_warm_ocean                          = rgb(0, 0, 80)
+minecraft:frozen_ocean                             = rgb(112, 112, 214)
+minecraft:legacy_frozen_ocean                      = rgb(152, 152, 254)
+minecraft:lukewarm_ocean                           = rgb(0, 0, 144)
+minecraft:ocean                                    = rgb(0, 0, 112)
+minecraft:warm_ocean                               = rgb(0, 0, 172)
+
+
+# Plains
+# ------
+
+minecraft:plains                                   = rgb(141, 179, 96)
+minecraft:sunflower_plains                         = rgb(181, 219, 136)
+
+
+# River
+# -----
+
+minecraft:frozen_river                             = rgb(160, 160, 255)
+minecraft:river                                    = rgb(0, 0, 255)
+
+
+# Savanna
+# -------
+
+minecraft:savanna                                  = rgb(189, 178, 95)
+minecraft:savanna_mutated                          = rgb(229, 218, 135)
+minecraft:savanna_plateau                          = rgb(167, 157, 100)
+minecraft:savanna_plateau_mutated                  = rgb(207, 197, 140)
+
+
+# Swamp
+# -----
+
+minecraft:mangrove_swamp                           = rgb(44, 204, 142)
+minecraft:swampland                                = rgb(7, 249, 178)
+minecraft:swampland_mutated                        = rgb(47, 255, 218)
+
+
+# Taiga
+# -----
+
+minecraft:cold_taiga                               = rgb(49, 85, 74)
+minecraft:cold_taiga_hills                         = rgb(36, 63, 54)
+minecraft:cold_taiga_mutated                       = rgb(76, 103, 94)
+minecraft:mega_taiga                               = rgb(89, 102, 81)
+minecraft:mega_taiga_hills                         = rgb(69, 79, 62)
+minecraft:redwood_taiga_hills_mutated              = rgb(109, 119, 102)
+minecraft:redwood_taiga_mutated                    = rgb(129, 142, 121)
+minecraft:taiga                                    = rgb(11, 106, 95)
+minecraft:taiga_hills                              = rgb(22, 57, 51)
+minecraft:taiga_mutated                            = rgb(51, 146, 135)
+
+
+# The End
+# -------
+
+minecraft:the_end                                  = rgb(128, 128, 255)
+
+
+# Underground
+# -----------
+
+minecraft:deep_dark                                = rgb(3, 31, 41)
+minecraft:dripstone_caves                          = rgb(78, 48, 18)
+minecraft:lush_caves                               = rgb(40, 60, 0)

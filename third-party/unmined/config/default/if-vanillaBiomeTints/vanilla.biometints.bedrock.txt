@@ -16,23 +16,23 @@ minecraft:stone_beach                              = #8ab689, #6da36b, #0d67bb
 
 minecraft:desert                                   = #bfb755, #aea42a, #32A598
 minecraft:desert_hills                             = #bfb755, #aea42a, #1A7AA1
-minecraft:desert_mutated                           = #bfb755, #aea42a,        
+minecraft:desert_mutated                           = #bfb755, #aea42a, #1A7AA1
 
 
 # Extreme Hills
 # -------------
 
 minecraft:extreme_hills                            = #8ab689, #6da36b, #007BF7
-minecraft:extreme_hills_edge                       = #8ab689, #6da36b,        
+minecraft:extreme_hills_edge                       = #8ab689, #6da36b, #045cd5
 minecraft:extreme_hills_mutated                    = #8ab689, #6da36b, #0E63AB
 minecraft:extreme_hills_plus_trees                 = #8ab689, #6da36b, #0E63AB
 minecraft:extreme_hills_plus_trees_mutated         = #8ab689, #6da36b, #0E63AB
-minecraft:frozen_peaks                             = #80B497, #60A17B,        
-minecraft:grove                                    = #80B497, #60A17B,        
-minecraft:jagged_peaks                             = #80B497, #60a17b,        
-minecraft:meadow                                   = #83BB6D, #63A948,        
-minecraft:snowy_slopes                             = #80B497, #60A17B,        
-minecraft:stony_peaks                              = #9ABE4B, #82AC1E,        
+minecraft:frozen_peaks                             = #80B497, #60A17B, #0E63AB
+minecraft:grove                                    = #80B497, #60A17B, #0E63AB
+minecraft:jagged_peaks                             = #80B497, #60a17b, #0E63AB
+minecraft:meadow                                   = #83BB6D, #63A948, #0E63AB
+minecraft:snowy_slopes                             = #80B497, #60A17B, #0E63AB
+minecraft:stony_peaks                              = #9ABE4B, #82AC1E, #0E63AB
 
 
 # Forest
@@ -42,6 +42,7 @@ minecraft:birch_forest                             = #88bb67, #6ba941, #0677CE
 minecraft:birch_forest_hills                       = #88bb67, #6ba941, #0A74C4
 minecraft:birch_forest_hills_mutated               = #79c05a, #59ae30, #0A74C4
 minecraft:birch_forest_mutated                     = #79c05a, #59ae30, #0677CE
+minecraft:cherry_groves                            = #b6db61, #b6db61, #5DB7EF
 minecraft:flower_forest                            = #79c05a, #59ae30, #20A3CC
 minecraft:forest                                   = #79c05a, #59ae30, #1E97F2
 minecraft:forest_hills                             = #79c05a, #59ae30, #056BD1
@@ -139,6 +140,7 @@ minecraft:savanna_plateau_mutated                  = #55C93F, #2bbb0f, #2590A8
 # Swamp
 # -----
 
+minecraft:mangrove_swamp                           = #6a7039, #8db127, #3a7a6a
 minecraft:swampland                                = #6A7039, #6a7039, #4C6559
 minecraft:swampland_mutated                        = #6A7039, #6a7039, #4C6156
 
@@ -167,5 +169,6 @@ minecraft:the_end                                  = #8eb971, #71a74d, #62529E
 # Underground
 # -----------
 
-minecraft:dripstone_caves                          = #8AB689, #6DA36B,        
-minecraft:lush_caves                               = #8EB971, #71a74d,        
+minecraft:deep_dark                                = #91bd59, #77ab2f, #44AFF5
+minecraft:dripstone_caves                          = #8AB689, #6DA36B, #44aff5
+minecraft:lush_caves                               = #8EB971, #71a74d, #44aff5

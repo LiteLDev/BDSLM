@@ -40,6 +40,7 @@ minecraft:windswept_hills                          = #8ab689, #6da36b, #3F76E4
 
 minecraft:birch_forest                             = #88bb67, #6ba941, #3F76E4
 minecraft:birch_forest_hills                       = #88bb67, #6ba941, #3F76E4
+minecraft:cherry_grove                             = #b6db61, #b6db61, #5DB7EF
 minecraft:dark_forest                              = #507a32, #59ae30, #3F76E4
 minecraft:dark_forest_hills                        = #507a32, #59ae30, #3F76E4
 minecraft:flower_forest                            = #79c05a, #59ae30, #3F76E4
@@ -144,6 +145,7 @@ minecraft:windswept_savanna                        = #bfb755, #aea42a, #3F76E4
 # Swamp
 # -----
 
+minecraft:mangrove_swamp                           = #6a7039, #8db127, #4D7A60
 minecraft:swamp                                    = #6A7039, #6a7039, #617B64
 minecraft:swamp_hills                              = #6A7039, #6a7039, #617B64
 
@@ -176,5 +178,6 @@ minecraft:the_end                                  = #8eb971, #71a74d, #3F76E4
 # Underground
 # -----------
 
+minecraft:deep_dark                                = #91bd59, #77ab2f, #3F76E4
 minecraft:dripstone_caves                          = #91BD59, #77AB2F, #3F76E4
 minecraft:lush_caves                               = #8EB971, #71a74d, #3F76E4

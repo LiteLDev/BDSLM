@@ -1,0 +1,36 @@
+﻿// Custom biome colors
+// ===================
+//
+//
+// Editing this file is the easiest way to customize colors for biome view.
+//
+//
+//
+// Simple usage
+// ============
+//
+//
+// Add one line for each biome you want to customize.
+//
+// Accepted formats:
+//
+//     biomename = #rrggbb
+//     biomename = rgb(r, g ,b)
+//     biomename = hsl(h, s ,l)
+//
+// Examples:
+//
+//	   minecraft:forest = #00ff00
+//	   minecraft:cold_ocean = rgb(0, 0, 140)
+//
+// You can use
+//
+// * Namespaces (eg. minecraft:forest, biomesoplenty:cherry_blossom_grove)
+// * Wildcards (eg. minecraft:*_ocean)
+//
+//
+// The "minecraft:" namespace prefix can be omitted for vanilla biome names.
+//
+
+
+minecraft:mybiome = rgb(80, 80, 80)

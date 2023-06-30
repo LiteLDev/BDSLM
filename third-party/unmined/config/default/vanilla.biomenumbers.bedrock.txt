@@ -83,3 +83,4 @@
 189 = minecraft:stony_peaks
 190 = minecraft:deep_dark
 191 = minecraft:mangrove_swamp
+192 = minecraft:cherry_groves

@@ -5,9 +5,6 @@
  *
  *
  * This script assigns tags to vanilla blocks.
- * It sets up many modded blocks too, like all blocks with name ending "leaves".
- * The default stylesheet uses these tags to determine block styles.
- *
  *
  * No detailed documentation here as things are going to change soon.
  *
@@ -16,329 +13,304 @@
  * Notes
  * =====
  *
- * 
+ *
  * This is a JavaScript file interpreted by Jint 3.x.
  * See https://github.com/sebastienros/jint for supported language features.
- *
- * 
- * 1. Boolean operators
- * --------------------
- * 
- *      Comma (",") between values means logical OR
- *      Space (" ") between values means logical AND
- *      Exclamation mark ("!") before a value means logical NOT
- *
- *      Examples:
- *
- *          "lava, water" means "lava" or "water" (matches minecraft:lava and minecraft:water)
- *          "*sand !red_sand" means "*sand*" and not "red_sand" (matches any vanilla block name ends with "sand" except "red_sand")
- *
- * 
- * 2. Double asterix
- * -----------------
- *
- *      "**x" is a shortcut for "*:x, *:*_x"
- *
- *      Example:
- *
- *          "**lava" is interpreted as "*:lava, *:*_lava", so it matches "lava" and "flowing_lava", but not "baklava".
  *
  *
  *
  *
  */
 
+class StyleSheet {
 
-var STYLESHEET = {
-    name: "uNmINeD - General block tags",
-    main: function (b) {
-        addAir(b);
+    build(builder) {
+        this.addAir(builder);
 
-        addTerrain(b);
-        addFormations(b);
-        addWeather(b);
-        addFlora(b);
-        addFauna(b);
+        this.addTerrain(builder);
+        this.addFormations(builder);
+        this.addWeather(builder);
+        this.addFlora(builder);
+        this.addFauna(builder);
 
-        addSculk(b);
+        this.addSculk(builder);
 
-        artificial.addAll(b);
-        
-        addCrafting(b);
-        addGlasses(b);
-        addLights(b);
-        addCircuit(b);
-        addOtherArtificial(b);
-        addUnsortedArtificial(b);
+        this.addProducts(builder);
 
-        addColors(b);
-        addTechnical(b);
+        this.addCrafting(builder);
+        this.addGlasses(builder);
+        this.addLights(builder);
+        this.addCircuit(builder);
+        this.addOtherArtificial(builder);
+        this.addUnsortedArtificial(builder);
+
+        this.addColors(builder);
+        this.addTechnical(builder);
     }
-};
 
 
-function addAir(b) {
-    b.tag("#air").apply("*:air, *:*_air");
-}
+    addAir(builder) {
+        builder.blockTag("#air").isFor("*:air, *:*_air");
+    }
 
-function addTerrain(b) {
-    b.tag("#terrain, #ground").apply(t => {
+    addTerrain(builder) {
+        builder.blockTag("#terrain, #ground").isForTags([
 
-        t.tag("#mycelium").apply("mycelium");
-        t.tag("#dirt").apply("**dirt");
+            builder.blockTag("#mycelium").isFor("mycelium"),
+            builder.blockTag("#dirt").isFor("**dirt"),
 
-        if (b.isBedrock) {
-            t.tag("#grassblock").apply("grass");
+            builder.isBedrock
+                ? builder.blockTag("#grassblock").isFor("grass")
+                : builder.blockTag("#grassblock").isFor("grass_block"),
+
+            builder.blockTag("#soil").isFor("#mycelium, #dirt, **podzol, **soil, harddirt"),
+            builder.blockTag("#podzol").isFor("**podzol"),
+
+            builder.blockTag("#ore").isFor("*_ore, ancient_debris"),
+
+            builder.blockTag("#coal_ore").isFor("coal_ore, deepslate_coal_ore"),
+            builder.blockTag("#copper_ore").isFor("copper_ore, deepslate_copper_ore"),
+            builder.blockTag("#diamond_ore").isFor("diamond_ore, deepslate_diamond_ore"),
+            builder.blockTag("#emerald_ore").isFor("emerald_ore, deepslate_emerald_ore"),
+            builder.blockTag("#gold_ore").isFor("gold_ore, deepslate_gold_ore"),
+            builder.blockTag("#iron_ore").isFor("iron_ore, deepslate_iron_ore"),
+            builder.blockTag("#lapis_ore").isFor("lapis_ore, deepslate_lapis_ore"),
+            builder.blockTag("#redstone_ore").isFor("redstone_ore, deepslate_redstone_ore"),
+            builder.blockTag("#nether_gold_ore").isFor("nether_gold_ore"),
+            builder.blockTag("#nether_quartz_ore").isFor("nether_quartz_ore"),
+
+            builder.blockTag("#rock")
+                .isFor(
+                    "andesite, diorite, calcite, granite, tuff, stone, grimstone, netherrack, *:*_nylium, end_stone, *:cragrock,*:cragRock, *:limestone"),
+            builder.blockTag("#rock").isFor("infested_stone, infested_deepslate"),
+            builder.blockTag("#rock").isFor("*:marble"),
+            builder.blockTag("#darkrock").isFor("bedrock, *:basalt, deepslate, smooth_basalt, obsidian, crying_obsidian"),
+            builder.blockTag("#rock").isFor("#darkrock"),
+
+
+            builder.blockTag("#gravel").isFor("gravel"),
+            builder.blockTag("#mud").isFor("*:mud"),
+            builder.blockTag("#clay").isFor("clay"),
+            builder.blockTag("#magma").isFor("magma, magma_block"),
+
+            builder.blockTag("#soulsand").isFor("soul_sand"),
+            builder.blockTag("#soul").isFor("soul_soil, #soulsand"),
+            builder.blockTag("#sand").isFor("**sand !red_sand !soul_sand, sandstone, hardsand"),
+            builder.blockTag("#redsand").isFor("red_sand, red_sandstone, sand[sand_type:red]"),
+            builder.blockTag("#rock").isFor("sandstone, red_sandstone"),
+            builder.blockTag("#sands").isFor("#soulsand, #redsand, #sand"),
+
+            builder.blockTag("#salt").isFor("*:dried_salt"),
+
+            builder.blockTag("#path").isFor("grass_path, dirt_path"),
+
+            builder.blockTag("#terracotta").isFor("**terracotta, hardened_clay, stained_hardened_clay"),
+        ]).natural().blocking();
+    }
+
+    addFormations(builder) {
+        builder.blockTag("#dripstone,#ground").isFor("dripstone_block, pointed_dripstone").natural().nonblocking();
+
+        builder.blockTag("#amethyst").isFor("*_amethyst_bud, amethyst_cluster").natural().nonblocking();
+        builder.blockTag("#amethyst, #ground").isFor("amethyst_block, budding_amethyst").natural().blocking();
+        builder.blockTag("#crystal").isFor("#amethyst");
+    }
+
+    addWeather(builder) {
+        builder.blockTag("#water").isFor([
+            "**water",
+            "*:bubble_column"
+        ]).natural().water();;
+
+        builder.blockTag("#water.poison").isFor("*:poison").natural().fluid();
+        builder.blockTag("#lava").isFor("**lava").natural().fluid();
+        builder.blockTag("#ice").isFor("**ice").natural().blocking();
+        builder.blockTag("#snow").isFor("**snow, **snow_layer").nonblocking().natural();
+        builder.blockTag("#snow").isFor("**snow_block").natural().blocking();
+        builder.blockTag("#fire").isFor("**fire").natural().nonblocking();
+    }
+
+    addFlora(builder) {
+
+        // blocking
+        builder.blockTag("#flora").natural().blocking().isForTags([
+            builder.blockTag("#leaves").isFor("**leaves,**leaves?,**leaves_?,*:*Leaves,*:*Leaves?,**foliage,*:leaves*"),
+            builder.blockTag("#log").isFor("**log,**log?,**logs?"),
+            builder.blockTag("#mushroom.brown").isFor("brown_mushroom_block"),
+            builder.blockTag("#mushroom.red").isFor("red_mushroom_block"),
+            builder.blockTag("#mushroom").isFor("#mushroom.brown, #mushroom.red"),
+            builder.blockTag("#mushroom").isFor("shroomlight"),
+            builder.blockTag("#bush").isFor("azalea,flowering_azalea,big_dripleaf,moss_block"),
+        ]);
+
+
+        builder.blockTag("#flora").natural().blocking().isFor("*:cactus, *:sugar_cane, reeds, *:chorus_plant, *:reed, *:bamboo");
+
+        builder.blockTag("#chorus").isFor(["*:chorus_plant"]);
+
+        // non-blocking
+        builder.blockTag("#flora").natural().nonblocking().isForTags([
+            builder.blockTag("#sapling").isFor("**sapling"),
+            builder.blockTag("#stem").isFor("**stem"),
+            builder.blockTag("#sprout").isFor("**sprout, **sprouts"),
+            builder.blockTag("#flower").isFor([
+                "**flower,**flowers,**flowers?,**flower_?,**flower?,*:plant_?,*:plant?,*:moss,*:double_plant, **allium, **bluet, **orchid, **dandelion, **lavender, **lilac, lily_of_the_valley, **lily_pad, **hibiscus, **tulip, **lily, **daisy, **peony, **poppy, **rose, **violet, **waterlily",
+                "spore_blossom, *_flowered"]),
+
+            builder.blockTag("#flower.red").isFor("*:red_* #flower, poppy, rose_bush"),
+            builder.blockTag("#flower.yellow").isFor("*:yellow_* #flower, dandelion, sunflower"),
+            builder.blockTag("#flower.blue").isFor("*:blue_* #flower, cornflower"),
+            builder.blockTag("#flower.purple").isFor("*:purple_* #flower, lilac, peony, allium"),
+            builder.blockTag("#flower.white").isFor("*:white_* #flower, oxeye_daisy, chorus_flower"),
+            builder.blockTag("#flower.pink").isFor("pink_petals"),
+
+            builder.blockTag("#lilypad").isFor("lily_pad,waterlily"),
+
+
+            builder.blockTag("#mushroom").isFor("*:*_fungus, **mushroom, **mushroom?"),
+            builder.blockTag("#grass").isFor("**roots, **wart, *:barley, **bush, moss_carpet, deadbush"),
+
+            builder.blockTag("#lichen").isFor("**lichen"),
+
+            builder.isBedrock
+                ? builder.blockTag("#grass,-#flower").isFor("tallgrass, double_plant")
+                : builder.blockTag("#grass").isFor("**grass,tallgrass,double_tallgrass"),
+
+            builder.blockTag("#grass").isFor("**Grass, small_dripleaf, **fern"),
+            builder.blockTag("#seagrass").isFor("**seagrass").waterlogged(),
+            builder.blockTag("#kelp").isFor("**kelp, **kelp_plant").waterlogged(),
+            builder.blockTag("#vine").isFor("**vine, **vines, *_vines_*, **vines_plant, *:ivy, *:treemoss, *:willow"),
+
+            builder.blockTag("#fruit").isFor("cocoa, melon, pumpkin"),
+        ]);
+
+        builder.blockTag("#flat").isFor("#grass,#seagrass,#kelp,#flower,#sapling,#stem,#sprout");
+
+        // alias
+        builder.blockTag("#vegetation").isFor("#flora");
+    }
+
+    addFauna(builder) {
+        if (builder.isBedrock) {
+            builder.blockTag("#corals").natural().nonblocking().isForTags([
+                builder.blockTag("#coral").isFor("coral"),
+                builder.blockTag("#coral_fan").isFor("coral_fan, coral_fan_dead"),
+                builder.blockTag("#coral_wall_fan").isFor("coral_fan_hang, coral_fan_hang?"),
+                builder.blockTag("#coral_block").isFor("coral_block"),
+            ]);
+
+            builder.blockTag("#coral.tube").isFor("#corals *[coral_color:blue]");
+            builder.blockTag("#coral.brain").isFor("#corals *[coral_color:pink]");
+            builder.blockTag("#coral.bubble").isFor("#corals *[coral_color:purple]");
+            builder.blockTag("#coral.fire").isFor("#corals *[coral_color:fire]");
+            builder.blockTag("#coral.horn").isFor("#corals *[coral_color:horn]");
+            builder.blockTag("#coral.dead").isFor("#corals *[dead_bit:1]");
+
+            builder.blockTag("#frogspawn").natural().nonblocking().isFor("frog_spawn");
         } else {
-            t.tag("#grassblock").apply("grass_block");
+            builder.blockTag("#corals").natural().nonblocking().isForTags([
+                builder.blockTag("#coral").isFor("**coral"),
+                builder.blockTag("#coral_fan").isFor("**coral_fan"),
+                builder.blockTag("#coral_wall_fan").isFor("**coral_wall_fan"),
+                builder.blockTag("#coral_block").isFor("**coral_block"),
+            ]);
+
+            builder.blockTag("#coral.tube").isFor("#corals *:*tube*");
+            builder.blockTag("#coral.brain").isFor("#corals *:*brain*");
+            builder.blockTag("#coral.bubble").isFor("#corals *:*bubble*");
+            builder.blockTag("#coral.fire").isFor("#corals *:*fire*");
+            builder.blockTag("#coral.horn").isFor("#corals *:*horn*");
+            builder.blockTag("#coral.dead").isFor("#corals *:*dead*");
+
+            builder.blockTag("#frogspawn").natural().nonblocking().isFor("frogspawn");
         }
 
-
-        t.tag("#soil").apply("#mycelium, #dirt, **podzol, **soil, harddirt");
-        t.tag("#podzol").apply("**podzol");
-
-        t.tag("#ore").apply("*_ore, ancient_debris");
-
-        t.tag("#coal_ore").apply("coal_ore, deepslate_coal_ore");
-        t.tag("#copper_ore").apply("copper_ore, deepslate_copper_ore");
-        t.tag("#diamond_ore").apply("diamond_ore, deepslate_diamond_ore");
-        t.tag("#emerald_ore").apply("emerald_ore, deepslate_emerald_ore");
-        t.tag("#gold_ore").apply("gold_ore, deepslate_gold_ore");
-        t.tag("#iron_ore").apply("iron_ore, deepslate_iron_ore");
-        t.tag("#lapis_ore").apply("lapis_ore, deepslate_lapis_ore");
-        t.tag("#redstone_ore").apply("redstone_ore, deepslate_redstone_ore");
-        t.tag("#nether_gold_ore").apply("nether_gold_ore");
-        t.tag("#nether_quartz_ore").apply("nether_quartz_ore");
-
-        t.tag("#rock")
-            .apply(
-                "andesite, diorite, calcite, granite, tuff, stone, grimstone, netherrack, *:*_nylium, end_stone, *:cragrock,*:cragRock, *:limestone");
-        t.tag("#rock").apply("infested_stone, infested_deepslate");
-        t.tag("#rock").apply("*:marble");
-        t.tag("#darkrock").apply("bedrock, *:basalt, deepslate, smooth_basalt, obsidian, crying_obsidian");
-        t.tag("#rock").apply("#darkrock");
-
-
-        t.tag("#gravel").apply("gravel");
-        t.tag("#mud").apply("*:mud");
-        t.tag("#clay").apply("clay");
-        t.tag("#magma").apply("magma, magma_block");
-
-        t.tag("#soulsand").apply("soul_sand");
-        t.tag("#soul").apply("soul_soil, #soulsand");
-        t.tag("#sand").apply("**sand !red_sand !soul_sand, sandstone, hardsand");
-        t.tag("#redsand").apply("red_sand, red_sandstone");
-        t.tag("#rock").apply("sandstone, red_sandstone");
-        t.tag("#sands").apply("#soulsand, #redsand, #sand");
-
-        t.tag("#salt").apply("*:dried_salt");
-
-        t.tag("#path").apply("grass_path, dirt_path");
-
-        t.tag("#terracotta").apply("**terracotta, hardened_clay");
-    }).natural().blocking();
-}
-
-function addFormations(b) {
-    b.tag("#dripstone,#ground").apply("dripstone_block, pointed_dripstone").natural().nonblocking();
-
-    b.tag("#amethyst").apply("*_amethyst_bud, amethyst_cluster").natural().nonblocking();
-    b.tag("#amethyst, #ground").apply("amethyst_block, budding_amethyst").natural().blocking();
-    b.tag("#crystal").apply("#amethyst");
-}
-
-function addWeather(b) {
-    b.tag("#water").apply([
-        "**water",
-        "*:bubble_column"
-    ]).natural().water();;
-
-    b.tag("#water.poison").apply("*:poison").natural().fluid();
-    b.tag("#lava").apply("**lava").natural().fluid();
-    b.tag("#ice").apply("**ice").natural().blocking();
-    b.tag("#snow").apply("**snow, **snow_layer").nonblocking().natural();;
-    b.tag("#snow").apply("**snow_block").natural().blocking();
-    b.tag("#fire").apply("**fire").natural().nonblocking();
-}
-
-function addFlora(b) {
-
-    // blocking
-    b.tag("#flora").natural().blocking().apply(b => {
-        b.tag("#leaves").apply("**leaves,**leaves?,**leaves_?,*:*Leaves,*:*Leaves?,**foliage,*:leaves*");
-        b.tag("#log").apply("**log,**log?,**logs?");
-        b.tag("#mushroom.brown").apply("brown_mushroom_block");
-        b.tag("#mushroom.red").apply("red_mushroom_block");
-        b.tag("#mushroom").apply("#mushroom.brown, #mushroom.red");
-        b.tag("#mushroom").apply("shroomlight");
-        b.tag("#bush").apply("azalea,flowering_azalea,big_dripleaf,moss_block");
-        b.tag("#bamboo").apply("**bamboo");
-    });
-
-
-    b.tag("#flora").natural().blocking().apply("*:cactus, *:sugar_cane, reeds, *:chorus_plant, *:reed");
-
-    b.tag("#chorus").apply(["*:chorus_plant"]);
-
-    // non-blocking
-    b.tag("#flora").natural().nonblocking().apply(t => {
-
-        t.tag("#sapling").apply("**sapling");
-        t.tag("#stem").apply("**stem");
-        t.tag("#sprout").apply("**sprout, **sprouts");
-        t.tag("#flower").apply([
-            "**flower,**flowers,**flowers?,**flower_?,**flower?,*:plant_?,*:plant?,*:moss,*:double_plant, **allium, **bluet, **orchid, **dandelion, **lavender, **lilac, lily_of_the_valley, **lily_pad, **hibiscus, **tulip, **lily, **daisy, **peony, **poppy, **rose, **violet, **waterlily",
-            "spore_blossom, *_flowered"]);
-
-        t.tag("#flower.red").apply("*:red_* #flower, poppy, rose_bush");
-        t.tag("#flower.yellow").apply("*:yellow_* #flower, dandelion, sunflower");
-        t.tag("#flower.blue").apply("*:blue_* #flower, cornflower");
-        t.tag("#flower.purple").apply("*:purple_* #flower, lilac, peony, allium");
-        t.tag("#flower.white").apply("*:white_* #flower, oxeye_daisy, chorus_flower");
-
-        t.tag("#lilypad").apply("lily_pad,waterlily");
-
-
-        t.tag("#mushroom").apply("*:*_fungus, **mushroom, **mushroom?");
-        t.tag("#grass").apply("**roots, **wart, *:barley, **bush, moss_carpet, deadbush");
-
-        t.tag("#lichen").apply("**lichen");
-
-        if (b.isBedrock) {
-            t.tag("#grass,-#flower").apply("tallgrass, double_plant");
-        } else {
-            t.tag("#grass").apply("**grass,tallgrass,double_tallgrass");
-        }
-
-        t.tag("#grass").apply("**Grass, small_dripleaf, **fern");
-        t.tag("#seagrass").apply("**seagrass").waterlogged();
-        t.tag("#kelp").apply("**kelp, **kelp_plant").waterlogged();
-        t.tag("#vine").apply("**vine, **vines, *_vines_*, **vines_plant, *:ivy, *:treemoss, *:willow");
-
-        t.tag("#fruit").apply("cocoa, melon, pumpkin");
-    });
-
-    b.tag("#flat").apply("#grass,#seagrass,#kelp,#flower,#sapling,#stem,#sprout");
-
-    // alias
-    b.tag("#vegetation").apply("#flora");
-}
-
-function addFauna(b) {
-    if (b.isBedrock) {
-        b.tag("#corals").natural().nonblocking().apply(b => {
-            b.tag("#coral").apply("coral");
-            b.tag("#coral_fan").apply("coral_fan, coral_fan_dead");
-            b.tag("#coral_wall_fan").apply("coral_fan_hang, coral_fan_hang?");
-            b.tag("#coral_block").apply("coral_block");
-        });
-
-        /* TODO blockstate tags
-        b.tag("#coral.tube").apply("#corals *[coral_color:blue]");
-        b.tag("#coral.brain").apply("#corals *[coral_color:pink]");
-        b.tag("#coral.bubble").apply("#corals *[coral_color:purple]");
-        b.tag("#coral.fire").apply("#corals *[coral_color:fire]");
-        b.tag("#coral.horn").apply("#corals *[coral_color:horn]");
-        b.tag("#coral.dead").apply("#corals *[dead_bit:1]");
-        */
-
-        b.tag("#frogspawn").natural().nonblocking().apply("frog_spawn");
-    } else {
-        b.tag("#corals").natural().nonblocking().apply(b => {
-            b.tag("#coral").apply("**coral");
-            b.tag("#coral_fan").apply("**coral_fan");
-            b.tag("#coral_wall_fan").apply("**coral_wall_fan");
-            b.tag("#coral_block").apply("**coral_block");
-        });
-
-        b.tag("#coral.tube").apply("#corals *:*tube*");
-        b.tag("#coral.brain").apply("#corals *:*brain*");
-        b.tag("#coral.bubble").apply("#corals *:*bubble*");
-        b.tag("#coral.fire").apply("#corals *:*fire*");
-        b.tag("#coral.horn").apply("#corals *:*horn*");
-        b.tag("#coral.dead").apply("#corals *:*dead*");
-
-        b.tag("#frogspawn").natural().nonblocking().apply("frogspawn");
+        builder.blockTag("#fauna").isFor("*:cobweb, *:web, *:*_nest, *:*_egg, sea_pickle, slime").natural().nonblocking();
+        builder.blockTag("#fauna").isFor("#corals");
     }
 
-    b.tag("#fauna").apply("*:cobweb, *:web, *:*_nest, *:*_egg, sea_pickle, slime").natural().nonblocking();
-    b.tag("#fauna").apply("#corals");
-}
-
-function addSculk(b) {
-    b.tag("#sculk").natural().blocking().apply("sculk, sculk_catalyst");
-    b.tag("#sculk").natural().nonblocking().apply("sculk_shrieker, sculk_vein");
-}
-
-
-class artificial {
-
-    static addAll(b) {
-        this.addProducts(b);
+    addSculk(builder) {
+        builder.blockTag("#sculk").natural().blocking().isFor("sculk, sculk_catalyst");
+        builder.blockTag("#sculk").natural().nonblocking().isFor("sculk_shrieker, sculk_vein");
     }
 
-    static addProducts(b) {
+
+    addProducts(builder) {
 
         // Product categories
 
-        b.tag("#blocking, #artificial, -#natural").apply([
-            b.tag("#door").apply("*:**door"),
-            b.tag("#fence").apply("**fence"),
-            b.tag("#fencegate").apply("**fence_gate"),
-            b.tag("#planks").apply("**planks"),
-            b.tag("#slab").apply("**slab, **slab?"),
-            b.tag("#stairs").apply("**stairs"),
-            b.tag("#pillar").apply("**pillar"),
-            b.tag("#bricks").apply("**bricks"),
-            b.tag("#tiles").apply("**tiles"),
-            b.tag("#wall").apply("**wall"),
-            b.tag("#wood").apply("**wood, **hyphae")
+        builder.blockTag().blocking().artificial().isForTags([
+            builder.blockTag("#door").isFor("*:**door"),
+            builder.blockTag("#fence").isFor("**fence"),
+            builder.blockTag("#fencegate").isFor("**fence_gate"),
+            builder.blockTag("#planks").isFor("**planks"),
+            builder.blockTag("#slab").isFor("**slab, **slab?"),
+            builder.blockTag("#stairs").isFor("**stairs"),
+            builder.blockTag("#pillar").isFor("**pillar"),
+            builder.blockTag("#bricks").isFor("**bricks"),
+            builder.blockTag("#tiles").isFor("**tiles"),
+            builder.blockTag("#wall").isFor("**wall"),
+            builder.blockTag("#wood").isFor("**wood, **hyphae")
         ]);
 
-        b.tag("#nonblocking, #artificial, -#natural").apply([
-            b.tag("#button").apply("**button"),
-            b.tag("#pressureplate").apply("**pressure_plate"),
-            b.tag("#sign").apply("**sign, chalkboard"),
-            b.tag("#trapdoor").apply("**trapdoor"),
-            b.tag("#wallsign").apply("**wall_sign"),
-            b.tag("#banner").apply("**banner"),
-            b.tag("#wallbanner").apply("**wall_banner")
+        builder.blockTag().nonblocking().artificial().isForTags([
+            builder.blockTag("#button").isFor("**button"),
+            builder.blockTag("#pressureplate").isFor("**pressure_plate"),
+            builder.blockTag("#sign").isFor("**sign, chalkboard"),
+            builder.blockTag("#trapdoor").isFor("**trapdoor"),
+            builder.blockTag("#wallsign").isFor("**wall_sign"),
+            builder.blockTag("#banner").isFor("**banner"),
+            builder.blockTag("#wallbanner").isFor("**wall_banner")
         ]);
 
         // Wooden product materials
 
-        b.tag("#wooden").apply([
-            b.tag("#acacia").apply("*:acacia_* !#natural"),
-            b.tag("#birch").apply("*:birch_* !#natural"),
-            b.tag("#darkoak").apply("*:dark_oak_* !#natural"),
-            b.tag("#jungle").apply("*:jungle_* !#natural"),
-            b.tag("#oak").apply("*:oak_* !#natural"),
-            b.tag("#spruce").apply("*:spruce_* !#natural"),
-            b.tag("#crimson").apply("*:crimson_* !#natural"),
-            b.tag("#warped").apply("*:warped_* !#natural"),
-            b.tag("#mangrove").apply("*:mangrove_* !#natural")
+        if (builder.isBedrock) {
+            builder.blockTag("#wooden").isForTags([
+                builder.blockTag("#acacia").isFor("[wood_type:acacia]"),
+                builder.blockTag("#birch").isFor("[wood_type:birch]"),
+                builder.blockTag("#darkoak").isFor("[wood_type:dark_oak]"),
+                builder.blockTag("#jungle").isFor("[wood_type:jungle]"),
+                builder.blockTag("#oak").isFor("[wood_type:oak]"),
+                builder.blockTag("#spruce").isFor("[wood_type:spruce]"),
+            ]);
+        }
+
+        builder.blockTag("#wooden").isForTags([
+            builder.blockTag("#acacia").isFor("*:acacia_* !#natural"),
+            builder.blockTag("#birch").isFor("*:birch_* !#natural"),
+            builder.blockTag("#darkoak").isFor("*:dark_oak_* !#natural"),
+            builder.blockTag("#jungle").isFor("*:jungle_* !#natural"),
+            builder.blockTag("#oak").isFor("*:oak_* !#natural"),
+            builder.blockTag("#spruce").isFor("*:spruce_* !#natural"),
+
+            builder.blockTag("#crimson").isFor("*:crimson_* !#natural"),
+            builder.blockTag("#warped").isFor("*:warped_* !#natural"),
+            builder.blockTag("#mangrove").isFor("*:mangrove_* !#natural"),
+            builder.blockTag("#bamboo").isFor("*:bamboo_* !#natural"),
+            builder.blockTag("#cherry").isFor("*:cherry_* !#natural")
         ]);
 
         // todo bedrock
-        b.tag("#wooden").apply("**wooden_*");
-        b.tag("#wooden").apply("*:double_wooden_*");
-        b.tag("#wooden").apply("planks, trapdoor, fence");
+        builder.blockTag("#wooden").isFor("**wooden_*");
+        builder.blockTag("#wooden").isFor("*:double_wooden_*");
+        builder.blockTag("#wooden").isFor("planks, trapdoor, fence");
 
-        b.tag("#wooden").apply("*:*_wood !#natural, petrified_oak_slab");
-        
-        b.tag("#artificial,-#natural").apply("#wooden");
+        builder.blockTag("#wooden").isFor("*:*_wood !#natural, petrified_oak_slab");
+
+        builder.blockTag().artificial().isFor("#wooden");
 
         // Metal product materials
 
-        b.tag("#metal, #artificial, -#natural").apply([
-            b.tag("#cutcopper").apply("*:cut_copper*"),
-            b.tag("#waxedcutcopper").apply("*:waxed_cut_copper*"),
-            b.tag("#waxedexposedcutcopper").apply("*:waxed_exposed_cut_copper*"),
-            b.tag("#waxedoxidizedcutcopper").apply("*:waxed_oxidized_cut_copper*"),
-            b.tag("#waxedweatheredcutcopper").apply("*:waxed_weathered_cut_copper*"),
-            b.tag("#weatheredcutcopper").apply("*:weathered_cut_copper*"),
-            b.tag("#exposedcutcopper").apply("*:exposed_cut_copper*"),
-            b.tag("#oxidizedcutcopper").apply("*:oxidized_cut_copper*")
+        builder.blockTag("#metal").artificial().isForTags([
+            builder.blockTag("#cutcopper").isFor("*:cut_copper*"),
+            builder.blockTag("#waxedcutcopper").isFor("*:waxed_cut_copper*"),
+            builder.blockTag("#waxedexposedcutcopper").isFor("*:waxed_exposed_cut_copper*"),
+            builder.blockTag("#waxedoxidizedcutcopper").isFor("*:waxed_oxidized_cut_copper*"),
+            builder.blockTag("#waxedweatheredcutcopper").isFor("*:waxed_weathered_cut_copper*"),
+            builder.blockTag("#weatheredcutcopper").isFor("*:weathered_cut_copper*"),
+            builder.blockTag("#exposedcutcopper").isFor("*:exposed_cut_copper*"),
+            builder.blockTag("#oxidizedcutcopper").isFor("*:oxidized_cut_copper*")
 
         ]);
 
@@ -374,229 +346,246 @@ class artificial {
 
             const tagName = "#" + m.replace("_", "");
 
-            masonryMaterialTags.push(b.tag(tagName).apply(pattern));
+            masonryMaterialTags.push(builder.blockTag(tagName).isFor(pattern));
         }
 
 
-        b.tag("#masonry, #artificial, -#natural").apply("packed_mud");
-        b.tag("#masonry, #artificial, #deepslate, -#natural").apply("reinforced_deepslate");
+        builder.blockTag("#masonry").artificial().isFor("packed_mud");
+        builder.blockTag("#masonry, #deepslate").artificial().isFor("reinforced_deepslate");
 
-        b.tag("#masonry, #artificial, -#natural").apply([
+        builder.blockTag("#masonry").artificial().isForTags([
 
             // prefixes
-            b.tag("#smooth").apply("**smooth_*"),
-            b.tag("#infested").apply("**mossy_* !#natural"),
-            b.tag("#cracked").apply("**cracked_*"),
-            b.tag("#chiseled").apply("**chiseled_*"),
-            b.tag("#polished").apply("**polished_*"),
-            b.tag("#cobbled").apply("**cobbled_*"),
-            b.tag("#brick").apply("**brick_*"),
-            // TODO 1.19 mud_brick_*
-            b.tag("#mossy").apply("**mossy_* !#natural"),
+            builder.blockTag("#smooth").isFor("**smooth_*"),
+            builder.blockTag("#infested").isFor("**infested_* !#natural"),
+            builder.blockTag("#cracked").isFor("**cracked_*"),
+            builder.blockTag("#chiseled").isFor("**chiseled_*"),
+            builder.blockTag("#polished").isFor("**polished_*"),
+            builder.blockTag("#cobbled").isFor("**cobbled_*"),
+            builder.blockTag("#brick").isFor("**brick_*"),
+            //TODO 1.19 mud_brick_*
+            builder.blockTag("#mossy").isFor("**mossy_* !#natural"),
 
             // postfixes
-            b.tag("#bricks").apply("*:*_bricks"),
-            b.tag("#tiles").apply("*:*_tiles"),
-            b.tag("#tile").apply("*:*_tile"),
-            
+            builder.blockTag("#bricks").isFor("*:*_bricks"),
+            builder.blockTag("#tiles").isFor("*:*_tiles"),
+            builder.blockTag("#tile").isFor("*:*_tile"),
+
             // materials
-            b.tag("#rednetherbrick").apply("**red_nether_brick_*"),
-            b.tag("#netherbrick").apply("**nether_brick_* !**red_nether_brick_*")
+            builder.blockTag("#rednetherbrick").isFor("**red_nether_brick_*"),
+            builder.blockTag("#netherbrick").isFor("**nether_brick_* !**red_nether_brick_*")
         ].concat(masonryMaterialTags));
 
     }
 
 
-}
 
 
-function addGlasses(b) {
-    b.tag("#glasses").artificial().blocking().apply(b => {
-        b.tag("#glass").apply("**glass, *:tinted_glass");
-        b.tag("#stained_glass").apply("*:*_stained_glass");
-        b.tag("#glass_pane").apply("**glass_pane");
-        b.tag("#stained_glass_pane").apply("*:*_stained_glass_pane");
-    });
-}
 
-function addLights(b) {
-    b.tag("#torch").apply("**torch");
-    b.tag("#light").apply("#torch").artificial().nonblocking();
-    b.tag("#light").apply("**lamp, **lantern, seaLantern, lit_pumpkin").artificial().blocking();
-    b.tag("#light").apply("**glowstone").natural().blocking();
+    addGlasses(builder) {
+        builder.blockTag("#glasses").artificial().blocking().isForTags([
+            builder.blockTag("#glass").isFor("**glass, *:tinted_glass"),
+            builder.blockTag("#stained_glass").isFor("**stained_glass"),
+            builder.blockTag("#glass_pane").isFor("**glass_pane"),
+            builder.blockTag("#stained_glass_pane").isFor("**stained_glass_pane")
+        ]);
+    }
 
-    b.tag("#froglight").apply("*_froglight").natural().blocking(); // pearlescent_froglight, verdant_froglight, ochre_froglight
-    b.tag("#light").apply("froglight");
-}
+    addLights(builder) {
+        builder.blockTag("#torch").isFor("**torch");
+        builder.blockTag("#light").isFor("#torch").artificial().nonblocking();
+        builder.blockTag("#light").isFor("**lamp, **lantern, seaLantern, lit_pumpkin").artificial().blocking();
+        builder.blockTag("#light").isFor("**glowstone").natural().blocking();
 
-function addCircuit(b) {
-    b.tag("#circuit, #piston").apply("**piston, piston_head, piston_extension").artificial().blocking();
-    b.tag("#circuit, #piston").apply("pistonArmCollision, stickyPistonArmCollision, movingBlock").artificial()
-        .blocking(); // Bedrock
+        builder.blockTag("#froglight").isFor("*_froglight").natural().blocking(); // pearlescent_froglight, verdant_froglight, ochre_froglight
+        builder.blockTag("#light").isFor("froglight");
+    }
 
-    b.tag("#circuit").apply([
-        "dispenser",
-        "dropper",
-        "hopper",
-        "lightning_rod",
-        "observer",
-        "redstone_lamp",
-        "redstone_wire",
-        "**repeater",
-        "tripwire_hook",
-        "tripWire"
-    ]).artificial().blocking();
+    addCircuit(builder) {
+        builder.blockTag("#circuit, #piston").isFor("**piston, piston_head, piston_extension").artificial().blocking();
+        builder.blockTag("#circuit, #piston").isFor("pistonArmCollision, stickyPistonArmCollision, movingBlock").artificial()
+            .blocking(); // Bedrock
 
-    b.tag("#circuit").apply([
-        "**comparator",
-        "daylight_detector*",
-        "lever",
-        "lightning_rod",
-        "redstone_torch",
-        "redstone_wire",
-        "**repeater",
-        "sculk_sensor",
-        "tripwire",
-    ]).artificial().nonblocking();
-}
+        builder.blockTag("#circuit").isFor([
+            "dispenser",
+            "dropper",
+            "hopper",
+            "lightning_rod",
+            "observer",
+            "redstone_lamp",
+            "redstone_wire",
+            "**repeater",
+            "tripwire_hook",
+            "tripWire"
+        ]).artificial().blocking();
 
-function addCrafting(b) {
-    b.tag("#crafting")
-        .apply(
-            "*:*_table, brewing_stand, **furnace, grindstone, loom, anvil, composter, smoker, stonecutter, soul_campfire, campfire")
-        .artificial().blocking();
-    b.tag("#crops").apply("*crops, *:farmland, **wheat, **potatoes, **beetroots, **beetroot, **carrots").artificial()
-        .nonblocking();
-}
+        builder.blockTag("#circuit").isFor([
+            "**comparator",
+            "daylight_detector*",
+            "lever",
+            "lightning_rod",
+            "redstone_torch",
+            "redstone_wire",
+            "**repeater",
+            "sculk_sensor",
+            "tripwire",
+        ]).artificial().nonblocking();
+    }
 
-function addUnsortedArtificial(b) {
-    b.tag("#artificial").blocking().apply([
-        "note_block", // JE
-        "noteblock", // BE
-        "allow", // BE
-        "deny", // BE
-        "frame",
-        "barrel",
-        "beacon",
-        "bed",
-        "beehive",
-        "bell",
-        "bookshelf",
-        "carved_pumpkin",
-        "chain,conduit",
-        "chest",
-        "chipped_anvil",
-        "composter",
-        "damaged_anvil",
-        "end_gateway",
-        "end_portal",
-        "end_portal_frame",
-        "end_rod",
-        "ender_chest",
-        "flower_pot",
-        "glowstone",
-        "iron_bars",
-        "jukebox",
-        "ladder",
-        "lectern",
-        "lodestone",
-        "nether_portal",
-        "respawn_anchor",
-        "scaffolding",
-        "skeleton_skull",
-        "*skeleton_wall_skull",
-        "skull",
-        "spawner",
-        "mob_spawner", // BE
-        "sponge",
-        "target",
-        "tnt",
-        "trapped_chest",
-        "wet_sponge",
-        "wither_skeleton_skull",
-    ]);
-}
+    addCrafting(builder) {
+        builder.blockTag("#crafting").artificial().blocking().isFor("*:*_table, brewing_stand, **furnace, grindstone, loom, anvil, composter, smoker, stonecutter, soul_campfire, campfire");
+        builder.blockTag("#crops").artificial().nonblocking().isFor("*crops, *:farmland, **wheat, **potatoes, **beetroots, **beetroot, **carrots");
+    }
 
-function addOtherArtificial(b) {
-    b.tag("#stone").blocking().artificial().apply([
-        "**cobblestone",
-        "**prismarine",
-        "**blackstone",
-        "stonebrick",
-        "nether_brick",
-        "red_nether_brick",
-    ]);
+    addUnsortedArtificial(builder) {
+        builder.blockTag("#artificial").blocking().isFor([
+            "note_block", // JE
+            "noteblock", // BE
+            "allow", // BE
+            "deny", // BE
+            "frame",
+            "barrel",
+            "beacon",
+            "bed",
+            "beehive",
+            "bell",
+            "bookshelf",
+            "carved_pumpkin",
+            "chain,conduit",
+            "chest",
+            "chipped_anvil",
+            "composter",
+            "damaged_anvil",
+            "end_gateway",
+            "end_portal",
+            "end_portal_frame",
+            "end_rod",
+            "ender_chest",
+            "flower_pot",
+            "glowstone",
+            "iron_bars",
+            "jukebox",
+            "ladder",
+            "lectern",
+            "lodestone",
+            "nether_portal",
+            "respawn_anchor",
+            "scaffolding",
+            "skeleton_skull",
+            "*skeleton_wall_skull",
+            "skull",
+            "spawner",
+            "mob_spawner", // BE
+            "sponge",
+            "target",
+            "tnt",
+            "trapped_chest",
+            "wet_sponge",
+            "wither_skeleton_skull",
+        ]);
+    }
 
-    b.tag("#prismarine").apply("**prismarine*");
+    addOtherArtificial(builder) {
+        builder.blockTag("#stone").blocking().artificial().isFor([
+            "**cobblestone",
+            "**prismarine",
+            "**blackstone",
+            "stonebrick",
+            "nether_brick",
+            "red_nether_brick",
+        ]);
 
-    b.tag("#darkstone").apply([
-        "#artificial *blackstone*"
-    ]);
+        builder.blockTag("#prismarine").isFor("**prismarine*");
+
+        builder.blockTag("#darkstone").isFor([
+            "#artificial *blackstone*"
+        ]);
 
 
-    b.tag("#artificial").blocking().apply(b => {
-        b.tag("#candle").apply("*:*_candle, candle");
-        b.tag("#cake").apply("*:cake");
-        b.tag("#candle_cake").apply("**candle_cake");
+        builder.blockTag().artificial().blocking().isForTags([
+            builder.blockTag("#candle").isFor("*:*_candle, candle"),
+            builder.blockTag("#cake").isFor("*:cake"),
+            builder.blockTag("#candle_cake").isFor("**candle_cake"),
 
-        b.tag("#concrete").apply("**concrete");
-        b.tag("#concrete_powder").apply("**concrete_powder, concretePowder");
-        b.tag("#wall").apply("*:*_wall");
-        b.tag("#bricks").apply("*bricks");
-        b.tag("#tiles").apply("*tiles");
-        b.tag("#wool").apply("**wool");
-        b.tag("#bed").apply("*:*_bed");
-        b.tag("#potted,-#flower").apply("*:potted_*");
-        b.tag("#head").apply("*:*_head");
-        b.tag("#shulker_box").apply("*shulker_box");
+            builder.blockTag("#concrete").isFor("**concrete"),
+            builder.blockTag("#concrete_powder").isFor("**concrete_powder"),
+            builder.blockTag("#wall").isFor("*:*_wall"),
+            builder.blockTag("#bricks").isFor("*bricks"),
+            builder.blockTag("#tiles").isFor("*tiles"),
+            builder.blockTag("#wool").isFor("**wool"),
+            builder.blockTag("#bed").isFor("*:*_bed"),
+            builder.blockTag("#potted,-#flower").isFor("*:potted_*"),
+            builder.blockTag("#head").isFor("*:*_head"),
+            builder.blockTag("#shulker_box").isFor("*shulker_box"),
+            builder.blockTag("#glazed_terracotta, -#terracotta").isFor("*:*_glazed_terracotta"),
+        ]);
 
-        b.select("*:*_glazed_terracotta").tag("#glazed_terracotta, -#terracotta");
-    });
+        builder.blockTag().artificial().nonblocking().isForTags([
+            builder.blockTag("#rail").isFor("**rail"),
+            builder.blockTag("#carpet").isFor("**carpet !#natural")
+        ]);
 
-    b.tag("#artificial").nonblocking().apply(b => {
-        b.tag("#rail").apply("**rail");
-        b.tag("#carpet").apply("**carpet !#natural");
-    });
-
-    b.select([
-        "*:chiseled_*",
-        "*:stained_*",
-        "*:polished_*",
-        "*:oxidized_*",
-        "*:waxed_*",
-        "*:cut_*",
-        "*:*_copper",
-        "*:smooth_* !*:smooth_basalt",
-        "*:stripped_*",
-        "*:*_pillar",
-        "**cauldron"
-    ]).artificial().blocking();
+        builder.blockTag().artificial().blocking().isFor([
+            "*:chiseled_*",
+            "*:stained_*",
+            "*:polished_*",
+            "*:oxidized_*",
+            "*:waxed_*",
+            "*:cut_*",
+            "*:*_copper",
+            "*:smooth_* !*:smooth_basalt",
+            "*:stripped_*",
+            "*:*_pillar",
+            "**cauldron"
+        ]);
 
 
-    b.select("*:*_block").blocking();
-    b.select("*:*_block !#natural").artificial();
-}
+        builder.blockTag().blocking().isFor("*:*_block");
+        builder.blockTag("#artificial").isFor("*:*_block !#natural"); // do not use .artificial() here
+    }
 
-function addColors(b) {
-    b.tag("#white").apply("*:white_* #artificial, *:white_* #terracotta");
-    b.tag("#orange").apply("*:orange_* #artificial, *:orange_* #terracotta");
-    b.tag("#magenta").apply("*:magenta_* #artificial, *:magenta_* #terracotta");
-    b.tag("#light_blue").apply("*:light_blue_* #artificial, *:light_blue_* #terracotta");
-    b.tag("#yellow").apply("*:yellow_* #artificial, *:yellow_* #terracotta");
-    b.tag("#lime").apply("*:lime_* #artificial, *:lime_* #terracotta");
-    b.tag("#pink").apply("*:pink_* #artificial, *:pink_* #terracotta");
-    b.tag("#gray").apply("*:gray_* #artificial, *:gray_* #terracotta");
-    b.tag("#light_gray").apply("*:light_gray_* #artificial, *:light_gray_* #terracotta");
-    b.tag("#cyan").apply("*:cyan_* #artificial, *:cyan_* #terracotta");
-    b.tag("#purple").apply("*:purple_* #artificial, *:purple_* #terracotta");
-    b.tag("#blue").apply("*:blue_* #artificial, *:blue_* #terracotta");
-    b.tag("#brown").apply("*:brown_* #artificial, *:brown_* #terracotta");
-    b.tag("#green").apply("*:green_* #artificial, *:green_* #terracotta");
-    b.tag("#red").apply("*:red_* #artificial, *:red_* #terracotta");
-    b.tag("#black").apply("*:black_* #artificial, *:black_* #terracotta");
-}
+    addColors(builder) {
+        builder.blockTag("#white").isFor("*:white_* #artificial, *:white_* #terracotta");
+        builder.blockTag("#orange").isFor("*:orange_* #artificial, *:orange_* #terracotta");
+        builder.blockTag("#magenta").isFor("*:magenta_* #artificial, *:magenta_* #terracotta");
+        builder.blockTag("#light_blue").isFor("*:light_blue_* #artificial, *:light_blue_* #terracotta");
+        builder.blockTag("#yellow").isFor("*:yellow_* #artificial, *:yellow_* #terracotta");
+        builder.blockTag("#lime").isFor("*:lime_* #artificial, *:lime_* #terracotta");
+        builder.blockTag("#pink").isFor("*:pink_* #artificial, *:pink_* #terracotta");
+        builder.blockTag("#gray").isFor("*:gray_* #artificial, *:gray_* #terracotta");
+        builder.blockTag("#light_gray,#silver").isFor("*:light_gray_* #artificial, *:light_gray_* #terracotta");
+        builder.blockTag("#cyan").isFor("*:cyan_* #artificial, *:cyan_* #terracotta");
+        builder.blockTag("#purple").isFor("*:purple_* #artificial, *:purple_* #terracotta");
+        builder.blockTag("#blue").isFor("*:blue_* #artificial, *:blue_* #terracotta");
+        builder.blockTag("#brown").isFor("*:brown_* #artificial, *:brown_* #terracotta");
+        builder.blockTag("#green").isFor("*:green_* #artificial, *:green_* #terracotta");
+        builder.blockTag("#red").isFor("*:red_* #artificial, *:red_* #terracotta");
+        builder.blockTag("#black").isFor("*:black_* #artificial, *:black_* #terracotta");
 
-function addTechnical(b) {
-    b.tag("#technical").apply("**command_block, **structure_block, *:structure_void, light").nonblocking();
-    b.tag("#technical").apply("barrier, jigsaw").blocking();
+        if (builder.isBedrock) {
+            builder.blockTag("#white").isFor("[color:white]");
+            builder.blockTag("#orange").isFor("[color:orange]");
+            builder.blockTag("#magenta").isFor("[color:magenta]");
+            builder.blockTag("#light_blue").isFor("[color:light_blue]");
+            builder.blockTag("#yellow").isFor("[color:yellow]");
+            builder.blockTag("#lime").isFor("[color:lime]");
+            builder.blockTag("#pink").isFor("[color:pink]");
+            builder.blockTag("#gray").isFor("[color:gray]");
+            builder.blockTag("#light_gray,#silver").isFor("[color:silver]");
+            builder.blockTag("#cyan").isFor("[color:cyan]");
+            builder.blockTag("#purple").isFor("[color:purple]");
+            builder.blockTag("#blue").isFor("[color:blue]");
+            builder.blockTag("#brown").isFor("[color:brown]");
+            builder.blockTag("#green").isFor("[color:green]");
+            builder.blockTag("#red").isFor("[color:red]");
+            builder.blockTag("#black").isFor("[color:black]");
+        }
+
+    }
+
+    addTechnical(builder) {
+        builder.blockTag("#technical").nonblocking().isFor("**command_block, **structure_block, *:structure_void, light");
+        builder.blockTag("#technical").blocking().isFor("barrier, jigsaw");
+    }
+
 }
