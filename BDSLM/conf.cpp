@@ -28,8 +28,8 @@ void from_yaml(const YAML::Node& node, Config& cfg) {
         cfg.apiServerPort = node["apiServer"]["port"].as<uint16_t>();
     }
     if (node["webChat"].IsDefined()) {
-        if (node["webChat"]["enable"].IsDefined()) {
-            cfg.enableWebChat = node["webChat"]["enable"].as<bool>();
+        if (node["webChat"]["enabled"].IsDefined()) {
+            cfg.enableWebChat = node["webChat"]["enabled"].as<bool>();
         }
         if (node["webChat"]["outbound"].IsDefined()) {
             if (node["webChat"]["outbound"]["prefix"].IsDefined()) {
