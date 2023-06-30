@@ -10,6 +10,7 @@ pipeline {
             when{
                 anyOf {
                     changeset("**/LINK.txt");
+                    changeset("**/Jenkinsfile");
                     not { expression{return fileExists('lib/bedrock_server_api.lib')}};
                     not { expression{return fileExists('lib/bedrock_server_var.lib')}}
                 }
@@ -21,7 +22,7 @@ pipeline {
                     '''
                 sh label: 'Generate Lib', script: '''
                     mkdir -p lib
-                    cd LiteLoaderSDK/Tools && ./LibraryBuilder.exe -o ../../lib/ ../../Server/
+                    cd LiteLoaderSDK/tools && ./PeEditor.exe -l -o ../../lib/ --pdb ../../Server/bedrock_server.pdb
                     '''
             }
         }
