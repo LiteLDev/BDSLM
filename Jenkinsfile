@@ -48,7 +48,7 @@ pipeline {
                     7z a ./artifact/BDSLM/unmined/templates/default.web.template.zip ./third-party/unmined/templates/**
                     '''
                 sh label: 'Zip BDSLM', script: '''
-                    rm -f artifact.zip
+                    rm -f BDSLM.zip
                     7z a BDSLM.zip ./artifact/**
                     '''
             }

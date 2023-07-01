@@ -13,7 +13,8 @@
         integrity="sha256-DOneOY3n5+xj6Da3AJBkPHxaPynqSlGaZ9790gbBOsE=" crossorigin="anonymous"></script>
 
     <!-- OpenLayers CSS -->
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.9.0/css/ol.css"
+    <link rel="stylesheet" type="text/css"
+        href="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.9.0/css/ol.css"
         integrity="sha256-jckPZk66EJrEBQXnJ5QC2bD+GxWPDRVVoMGr5vrMZvM=" crossorigin="anonymous">
 
     <!-- OpenLayers JS -->
@@ -64,7 +65,7 @@
         }
 
         div.ol-mouse-position {
-            background-color: rgb(224, 224, 224);
+            background-color: white;
             padding: 6px;
             border-radius: 3px;
             box-shadow: 3px 3px 2px rgba(0, 0, 0, 0.2);
@@ -175,7 +176,7 @@
         <div id="chatbox"></div>
         <div id="vline" class="vr"></div>
         <div id="hline" class="hr"></div>
-        <div id="map"></div>
+    <div id="map"></div>
     </div>
 
     <script type="text/javascript">
@@ -191,14 +192,14 @@
         </div>`);
 
         if (UnminedMapProperties != null) {
-            document.title = UnminedMapProperties.worldName + " - " + document.title;
+        document.title = UnminedMapProperties.worldName + " - " + document.title;
         }
-
+        
         // if (UnminedCustomMarkers && UnminedCustomMarkers.isEnabled && UnminedCustomMarkers.markers) {
         //     UnminedMapProperties.markers = UnminedMapProperties.markers.concat(UnminedCustomMarkers.markers);
         // }
         try {
-            let unmined = new Unmined();
+        let unmined = new Unmined();
             unmined.map('map', UnminedMapProperties, UnminedRegions);
         } catch (e) {
             console.log(e);

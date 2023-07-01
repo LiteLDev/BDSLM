@@ -138,7 +138,7 @@ class Unmined {
                 mousePositionControl
             ]),
             layers: [
-                unminedLayer,
+                unminedLayer,                
                 /*
                 new ol.layer.Tile({
                     source: new ol.source.TileDebug({
@@ -169,9 +169,9 @@ class Unmined {
             success: data => {
                 markersLayer = this.createMarkersLayer(data, dataProjection, viewProjection)
                 map.addLayer(markersLayer)
-            }
+        }
         })
-
+        
         setInterval(() => {
             $.ajax({
                 url: "api/getPlayerMarkers",
@@ -237,5 +237,5 @@ class Unmined {
         });
         return vectorLayer;
     }
-
+    
 }
